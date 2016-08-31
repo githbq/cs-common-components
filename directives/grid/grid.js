@@ -30,7 +30,6 @@ angular.module('app').directive('normalGrid', function ($timeout) {
             function onResize() {
                 if (debounceEvent) $timeout.cancel(debounceEvent);
                 debounceEvent = $timeout(function () {
-                    debugger
                     var parentContainer = iElem.parents('.ui-layout-container:first');
                     if (parentContainer.length > 0) {
                         var setHeight = parentContainer.height();
