@@ -1,6 +1,6 @@
 var templateStr = require('./grid.html');
 require('./grid.less');
-angular.module('app').directive('normalGrid', function ($timeout,$window) {
+angular.module('app').directive('normalGrid', function ($timeout, $window) {
     return {
         restrict: 'CA',
         template: templateStr,
@@ -48,11 +48,15 @@ angular.module('app').directive('normalGrid', function ($timeout,$window) {
             scope.$on('$destroy', function () {
                 angular.element($window).unbind('resize', onResize);
             });
-            //end 容器大小改变处理
+            //end 容器大小改变处理  
         },
         controller: function ($scope, uiGridConstants) {
             $scope.gridOptions = $scope.normalGrid;
-             var defaultOptions = {
+            var defaultOptions = {
+                enableFullRowSelection: true, //是否点击行任意位置后选中,默认为false,当为true时，checkbox可以显示但是不可选中
+                enableRowHeaderSelection: false, //是否显示选中checkbox框 ,默认为true
+                enableRowSelection: true, // 行选择是否可用，默认为true;
+                multiSelect: false ,// 是否可以选择多个,默认为true;
                 enableSorting: false,
                 showGridFooter: false,
                 enableGridMenu: true,
@@ -74,6 +78,7 @@ angular.module('app').directive('normalGrid', function ($timeout,$window) {
                     }
                 }
             });
+
             //$scope.gridOptions = {
             //    totalItems: 60,
             //    enableSorting: false,
@@ -94,123 +99,20 @@ angular.module('app').directive('normalGrid', function ($timeout,$window) {
             //    //    $scope.gridApi.core.handleWindowResize();
             //    //}, 500, 10);
             //};
-            //$scope.gridOptions.data = [
-            //    {
-            //        "name": "Ethel Price",
-            //        "gender": "female",
-            //        "company": "Enersol"
-            //    },
-            //    {
-            //        "name": "Claudine Neal",
-            //        "gender": "female",
-            //        "company": "Sealoud"
-            //    },
-            //    {
-            //        "name": "Beryl Rice",
-            //        "gender": "female",
-            //        "company": "Velity"
-            //    },
-            //    {
-            //        "name": "Wilder Gonzales",
-            //        "gender": "male",
-            //        "company": "Geekko"
-            //    },
-            //    {
-            //        "name": "Georgina Schultz",
-            //        "gender": "female",
-            //        "company": "Suretech"
-            //    },
-            //    {
-            //        "name": "Carroll Buchanan",
-            //        "gender": "male",
-            //        "company": "Ecosys"
-            //    },
-            //    {
-            //        "name": "Valarie Atkinson",
-            //        "gender": "female",
-            //        "company": "Hopeli"
-            //    },
-            //    {
-            //        "name": "Schroeder Mathews",
-            //        "gender": "male",
-            //        "company": "Polarium"
-            //    },
-            //    {
-            //        "name": "Lynda Mendoza",
-            //        "gender": "female",
-            //        "company": "Dogspa"
-            //    },
-            //    {
-            //        "name": "Sarah Massey",
-            //        "gender": "female",
-            //        "company": "Bisba"
-            //    },
-            //    {
-            //        "name": "Robles Boyle",
-            //        "gender": "male",
-            //        "company": "Comtract"
-            //    },
-            //    {
-            //        "name": "Evans Hickman",
-            //        "gender": "male",
-            //        "company": "Parleynet"
-            //    },
-            //    {
-            //        "name": "Dawson Barber",
-            //        "gender": "male",
-            //        "company": "Dymi"
-            //    },
-            //    {
-            //        "name": "Bruce Strong",
-            //        "gender": "male",
-            //        "company": "Xyqag"
-            //    },
-            //    {
-            //        "name": "Nellie Whitfield",
-            //        "gender": "female",
-            //        "company": "Exospace"
-            //    },
-            //    {
-            //        "name": "Jackson Macias",
-            //        "gender": "male",
-            //        "company": "Aquamate"
-            //    },
-            //    {
-            //        "name": "Pena Pena",
-            //        "gender": "male",
-            //        "company": "Quarx"
-            //    },
-            //    {
-            //        "name": "Lelia Gates",
-            //        "gender": "female",
-            //        "company": "Proxsoft"
-            //    },
-            //    {
-            //        "name": "Letitia Vasquez",
-            //        "gender": "female",
-            //        "company": "Slumberia"
-            //    },
-            //    {
-            //        "name": "Trevino Moreno",
-            //        "gender": "male",
-            //        "company": "Conjurica"
-            //    }
-            //];
-            //$scope.gridOptions.columnDefs = [
-            //    {name: 'name', aggregationType: uiGridConstants.aggregationTypes.count},
-            //    {
-            //        name: 'gender', filter: {term: 'male'}, width: 150, enableCellEdit: false,
-            //        cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
-            //            if (grid.getCellValue(row, col) === 'male') {
-            //                return 'blue';
-            //            } else if (grid.getCellValue(row, col) === 'female') {
-            //                return 'pink';
-            //            }
-            //        }
-            //    },
-            //    {name: 'age', aggregationType: uiGridConstants.aggregationTypes.avg, width: 100},
-            //    {name: 'company', enableFiltering: false, width: 200}
-            //];
+            //     $scope.clickMeParent = function () {
+            //     alert('me3')
+            // }
+            // $scope.labelGridOptions.columnDefs = [
+            //     { field: 'type1', displayName: '咨询分类', width: 150 },
+            //     { field: 'type2', displayName: '二级分类', width: 150 },
+            //     { field: 'description', displayName: '问题描述', width: 100 },
+            //     { field: 'company', displayName: '接待客服', width: 200 },
+            //     { field: 'time', displayName: '设置时间', cellFilter: 'date:"yyyy-MM-dd"', width: 200 },
+            //     {
+            //         field: 'control', displayName: '操作', width: '*',
+            //         cellTemplate: '<button ng-click="grid.appScope.$parent.clickMeParent(row)">点我{{row.entity}}</button>'
+            //     }
+            // ];
         }
     };
 });
