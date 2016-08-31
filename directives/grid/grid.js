@@ -52,6 +52,21 @@ angular.module('app').directive('normalGrid', function ($timeout,$window) {
         },
         controller: function ($scope, uiGridConstants) {
             $scope.gridOptions = $scope.normalGrid;
+             var defaultOptions = {
+                enableSorting: false,
+                showGridFooter: false,
+                enableGridMenu: true,
+                enableFiltering: false,
+                paginationCurrentPage: 1,
+                paginationPageSizes: [10, 50, 75, 100],
+                paginationPageSize: 10,//分页默认数量
+                useExternalPagination: true,//是否使用远程ajax的分页这时候就知道写事件了 而不是表格自己进行假分页
+                useExternalSorting: false,//是否使用远程ajax的排序 
+                enablePagination: true, //是否分页，默认为true
+                enablePaginationControls: true,//使用默认的底部分页
+                showCustomPagination: false//是否使用自定义的分页组件  默认不用
+            };
+            $scope.gridOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
             $scope.$watch('gridOptions.paginationCurrentPage', function (newVal, oldVal) {
                 if (angular.isDefined(newVal)) {
                     if ($scope.pageChange) {
