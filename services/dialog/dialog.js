@@ -16,14 +16,14 @@ angular.module('common.services').factory('customDialog', function ($uibModal) {
                         $scope.cancelText = '取消';
                         $scope.loadingText = "请稍等";
                         $scope.ok = function () {
-                            if (option.okCallback && option.okCallback() !== false) {
+                            if (option.okCallback && option.okCallback($scope) !== false) {
                                 $uibModalInstance.close();
                             } else if (!option.okCallback) {
                                 $uibModalInstance.close();
                             }
                         };
                         $scope.cancel = function () {
-                            if (option.cancelCallback && option.cancelCallback() !== false) {
+                            if (option.cancelCallback && option.cancelCallback($scope) !== false) {
                                 $uibModalInstance.dismiss('cancel');
                             } else if (!option.cancelCallback) {
                                 $uibModalInstance.dismiss('cancel');

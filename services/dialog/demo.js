@@ -1,14 +1,13 @@
-require('./msgtalk2.less');
-require('./refs/index');
+/**
+ * demo页面是单独页面不要完全copy只是示范代码
+ * 
+ */ 
 angular.module('app').controller('homemsgtalk2Controller', function ($scope, customDialog) {
-    $scope.items = ['item1', 'item2', 'item3'];
-
-    $scope.animationsEnabled = true;
+    $scope.items = ['item1', 'item2', 'item3']; 
     $scope.open = function (size) {
         customDialog.open({
-            title: '1111AAAAB',
-            animation: $scope.animationsEnabled,
-            content: require('./template.html'),
+            title: '标题', 
+            content: '<div></div>',
             ctrl: function (dialogScope, $uibModalInstance) {
                 dialogScope.items = ['item1', 'item2', 'item3'];
                 dialogScope.openSub = function () {
