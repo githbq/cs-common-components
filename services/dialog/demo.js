@@ -10,7 +10,7 @@ angular.module('app').controller('homemsgtalk2Controller', function ($scope, cus
             animation: $scope.animationsEnabled,
             content: require('./template.html'),
             ctrl: function (dialogScope, $uibModalInstance) {
-                $scope.items = ['item1', 'item2', 'item3'];
+                dialogScope.items = ['item1', 'item2', 'item3'];
                 dialogScope.openSub = function () {
                     customDialog.open({
                         content: '<div><button>我在子窗口里面</div></div>',
