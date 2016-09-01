@@ -18,7 +18,7 @@ angular.module('common.services').factory('customDialog', function ($uibModal) {
                         }
                     };
                     $scope.cancel = function () {
-                        if (option.okCallback && option.cancelCallback() !== false) {
+                        if (option.cancelCallback && option.cancelCallback() !== false) {
                             $uibModalInstance.dismiss('cancel');
                         }
                     };
