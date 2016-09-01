@@ -1,6 +1,6 @@
 var templateStr = require('./grid.html');
 require('./grid.less');
-angular.module('app').directive('normalGrid', function ($timeout, $window) {
+angular.module('common.directives').directive('normalGrid', function ($timeout, $window) {
     return {
         restrict: 'CA',
         template: templateStr,
