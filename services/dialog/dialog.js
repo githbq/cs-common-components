@@ -31,7 +31,7 @@ angular.module('common.services').factory('customDialog', function ($uibModal) {
                         };
                         option.ctrl && option.ctrl($scope, $uibModalInstance);
                     },
-                    size: option.size,//type:string,一个类名 用来设置弹窗内容的样式,比如宽高
+                    size: option.size,//type:string,一个类名 用来设置弹窗内容的样式,比如宽高    不写或者'sm'或者'lg'  最终样式会自动带上前缀比如:modal-sm
                     resolve: option.resolve,//弹窗前预处理任务 返回promise与ui-router上的resolve功能一样
                     appendTo: option.appendTo //弹窗的窗口 原生dom对象 默认为 document.body
                 }
