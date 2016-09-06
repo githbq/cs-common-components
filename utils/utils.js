@@ -1,4 +1,4 @@
-angular.module('common.components').factory('ibssUtil', function ($http, IBSS) {
+angular.module('common.components').factory('ibssUtils', function ($http, IBSS) {
     var factory = { 
         /**
            * html 转义
