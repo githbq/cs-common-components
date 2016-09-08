@@ -33,7 +33,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                     gridApi.core.addRowHeaderColumn({ name: '__sequence', displayName: '#', width: 50, cellTemplate: 'ui-grid/uiGridCell' });
                     gridApi.grid.registerRowsProcessor($scope.addIndexColumn, 200);
                 }
-                $scope.gridOptions.onRegisterApiCallback && $scope.gridOptions.onRegisterApiCallback();
+                $scope.gridOptions.onRegisterApiCallback && $scope.gridOptions.onRegisterApiCallback(gridApi);
             };
             $scope.addIndexColumn = function (renderableRows) {
                 angular.forEach(renderableRows, function (row, i) {
