@@ -1,11 +1,11 @@
-var deps = ['mwl.confirm','ngSanitize'];
-deps = deps.concat(['ui.router', 'ui.layout', 'ui.bootstrap']);
-deps = deps.concat(['ui.grid', 'ui.grid.selection', 'ui.grid.moveColumns', 'ui.grid.autoResize', 'ui.grid.pinning', 'ui.grid.resizeColumns', 'ui.grid.cellNav', 'ui.grid.pagination']);
+require('angular-ui-grid');
+require('angular-ui-grid/ui-grid.css');
 
-angular.module('common.directives', deps);
-angular.module('common.services', deps);
-angular.module('common.filters', deps); 
+angular.module('common.components', ['ui.grid', 'ui.grid.selection', 'ui.grid.moveColumns', 'ui.grid.autoResize', 'ui.grid.pinning', 'ui.grid.resizeColumns', 'ui.grid.cellNav', 'ui.grid.pagination']);
 
-require('./directives/index');
-require('./services/index');
-require('./filters/index');
+require('./dialog/dialog');
+require('./bindhtmlcompile/bindhtmlcompile');
+require('./grid/grid');
+require('./loading/loading');
+require('./scroll/scrollservice');
+require('./utils/utils');
