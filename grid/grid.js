@@ -8,6 +8,10 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
         link: function ($scope, iElem, iAttr) {
             $scope.showGrid = false;
             var defaultOptions = {
+                enableFullRowSelection: true, //是否点击行任意位置后选中,默认为false,当为true时，checkbox可以显示但是不可选中
+                enableRowHeaderSelection: false, //是否显示选中checkbox框 ,默认为true
+                enableRowSelection: true, // 行选择是否可用，默认为true;
+                multiSelect: false,// 是否可以选择多个,默认为true;
                 enableSorting: false,
                 showGridFooter: false,
                 enableGridMenu: true,
@@ -21,7 +25,8 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 enablePaginationControls: true,//使用默认的底部分页
                 showCustomPagination: false,//是否使用自定义的分页组件  默认不用
                 showIndexHeader: false    //显示序列号
-            }; 
+            };
+            $scope.gridOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
             if ($scope.gridOptions.showCustomPagination) {//如果使用自定义的分页则默认分页不启用
                 $scope.gridOptions.enablePaginationControls = false;
             }
@@ -67,25 +72,6 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
             //end 容器大小改变处理  
         },
         controller: function ($scope, uiGridConstants) {
-            var defaultOptions = {
-                enableFullRowSelection: true, //是否点击行任意位置后选中,默认为false,当为true时，checkbox可以显示但是不可选中
-                enableRowHeaderSelection: false, //是否显示选中checkbox框 ,默认为true
-                enableRowSelection: true, // 行选择是否可用，默认为true;
-                multiSelect: false,// 是否可以选择多个,默认为true;
-                enableSorting: false,
-                showGridFooter: false,
-                enableGridMenu: true,
-                enableFiltering: false,
-                paginationCurrentPage: 1,
-                paginationPageSizes: [10, 50, 75, 100],
-                paginationPageSize: 10,//分页默认数量
-                useExternalPagination: true,//是否使用远程ajax的分页这时候就知道写事件了 而不是表格自己进行假分页
-                useExternalSorting: false,//是否使用远程ajax的排序 
-                enablePagination: true, //是否分页，默认为true
-                enablePaginationControls: true,//使用默认的底部分页
-                showCustomPagination: false//是否使用自定义的分页组件  默认不用
-            };
-            $scope.gridOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
             $scope.$watch('gridOptions.paginationCurrentPage', function (newVal, oldVal) {
                 if (angular.isDefined(newVal)) {
                     if ($scope.pageChange) {
