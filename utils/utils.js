@@ -139,12 +139,7 @@ angular.module('common.components').factory('ibssUtils', function ($http) {
             cache: false,
             timeout: opt.TIME_OUT,
             dataType: 'json'
-        }, opt || {});
-        if (opt.url.indexOf('~') == 0) {
-            opt.url = opt.url.slice(1);
-        } else {
-            opt.url = opt.API_PATH + opt.url;
-        }
+        }, opt || {}); 
         return $http(opt).success(
             function (data, status, config, headers) {
                 if (data.login == false) {
