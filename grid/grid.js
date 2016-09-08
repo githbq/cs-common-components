@@ -21,8 +21,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 enablePaginationControls: true,//使用默认的底部分页
                 showCustomPagination: false,//是否使用自定义的分页组件  默认不用
                 showIndexHeader: false    //显示序列号
-            };
-            $scope.gridOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
+            }; 
             if ($scope.gridOptions.showCustomPagination) {//如果使用自定义的分页则默认分页不启用
                 $scope.gridOptions.enablePaginationControls = false;
             }
@@ -86,7 +85,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 enablePaginationControls: true,//使用默认的底部分页
                 showCustomPagination: false//是否使用自定义的分页组件  默认不用
             };
-            $scope.gridOptions = angular.extend($scope.gridOptions, defaultOptions, $scope.gridOptions);
+            $scope.gridOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
             $scope.$watch('gridOptions.paginationCurrentPage', function (newVal, oldVal) {
                 if (angular.isDefined(newVal)) {
                     if ($scope.pageChange) {
