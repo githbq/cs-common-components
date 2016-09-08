@@ -1,5 +1,5 @@
 angular.module('common.components').factory('ibssUtils', function ($http) {
-    var factory = { 
+    var factory = {
         /**
            * html 转义
            */
@@ -139,7 +139,7 @@ angular.module('common.components').factory('ibssUtils', function ($http) {
             cache: false,
             timeout: opt.TIME_OUT,
             dataType: 'json'
-        }, opt || {}); 
+        }, opt || {});
         return $http(opt).success(
             function (data, status, config, headers) {
                 if (data.login == false) {
@@ -147,11 +147,11 @@ angular.module('common.components').factory('ibssUtils', function ($http) {
                     return;
                 }
                 if (!data.success) {
-                    alert('请求错误  ' + data.message);
+                    console.warn('请求错误  ' + data.message);
                 }
 
             }).error(function (data, status, config, headers) {
-                alert('网络请求错误')
+                console.warn('网络请求错误')
             });
     }
     factory.checkBlankSpace = function (str) {
