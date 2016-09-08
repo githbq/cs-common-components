@@ -4,10 +4,9 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
     return {
         restrict: 'CA',
         template: templateStr,
-        scope: { normalGrid: '=', pageChange: '=' },
-        link: function (scope, iElem, iAttr) {
-            scope.showGrid = false;
-            var $scope = scope;
+        scope: { gridOptions: '=normalGrid', pageChange: '=' },
+        link: function ($scope, iElem, iAttr) {
+            $scope.showGrid = false;
             var defaultOptions = {
                 enableSorting: false,
                 showGridFooter: false,
@@ -27,13 +26,14 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
             if ($scope.gridOptions.showCustomPagination) {//如果使用自定义的分页则默认分页不启用
                 $scope.gridOptions.enablePaginationControls = false;
             }
+            $scope.gridOptions._onRegisterApi = $scope.gridOptions.onRegisterApi;
             $scope.gridOptions.onRegisterApi = function (gridApi) {
                 $scope.gridOptions.gridApi = gridApi;
                 if ($scope.gridOptions.showIndexHeader) {
                     gridApi.core.addRowHeaderColumn({ name: '__sequence', displayName: '#', width: 50, cellTemplate: 'ui-grid/uiGridCell' });
                     gridApi.grid.registerRowsProcessor($scope.addIndexColumn, 200);
                 }
-                $scope.gridOptions.onRegisterApiCallback && $scope.gridOptions.onRegisterApiCallback(gridApi);
+                $scope.gridOptions._onRegisterApi && $scope.gridOptions._onRegisterApi(gridApi);
             };
             $scope.addIndexColumn = function (renderableRows) {
                 angular.forEach(renderableRows, function (row, i) {
@@ -54,7 +54,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                         }
                         iElem.find('.table-uigrid:first').height(setHeight);
                     }
-                    scope.showGrid = true;
+                    $scope.showGrid = true;
                     debounceEvent = null;
                 }, 50);
             }
@@ -62,13 +62,12 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
 
             angular.element($window).bind('resize', onResize);
 
-            scope.$on('$destroy', function () {
+            $scope.$on('$destroy', function () {
                 angular.element($window).unbind('resize', onResize);
             });
             //end 容器大小改变处理  
         },
         controller: function ($scope, uiGridConstants) {
-            $scope.gridOptions = $scope.normalGrid;
             var defaultOptions = {
                 enableFullRowSelection: true, //是否点击行任意位置后选中,默认为false,当为true时，checkbox可以显示但是不可选中
                 enableRowHeaderSelection: false, //是否显示选中checkbox框 ,默认为true
@@ -87,7 +86,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 enablePaginationControls: true,//使用默认的底部分页
                 showCustomPagination: false//是否使用自定义的分页组件  默认不用
             };
-            $scope.gridOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
+            $scope.gridOptions = angular.extend($scope.gridOptions, defaultOptions, $scope.gridOptions);
             $scope.$watch('gridOptions.paginationCurrentPage', function (newVal, oldVal) {
                 if (angular.isDefined(newVal)) {
                     if ($scope.pageChange) {
