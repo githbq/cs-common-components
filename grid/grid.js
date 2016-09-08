@@ -20,7 +20,8 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 useExternalSorting: false,//是否使用远程ajax的排序 
                 enablePagination: true, //是否分页，默认为true
                 enablePaginationControls: true,//使用默认的底部分页
-                showCustomPagination: false//是否使用自定义的分页组件  默认不用
+                showCustomPagination: false,//是否使用自定义的分页组件  默认不用
+                showIndexHeader: false    //显示序列号
             };
             $scope.gridOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
             if ($scope.gridOptions.showCustomPagination) {//如果使用自定义的分页则默认分页不启用
@@ -28,8 +29,10 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
             }
             $scope.gridOptions.onRegisterApi = function (gridApi) {
                 $scope.gridOptions.gridApi = gridApi;
-                gridApi.core.addRowHeaderColumn({ name: '__sequence', displayName: '#', width: 50, cellTemplate: 'ui-grid/uiGridCell' });
-                gridApi.grid.registerRowsProcessor($scope.addIndexColumn, 200);
+                if ($scope.gridOptions.showIndexHeader) {
+                    gridApi.core.addRowHeaderColumn({ name: '__sequence', displayName: '#', width: 50, cellTemplate: 'ui-grid/uiGridCell' });
+                    gridApi.grid.registerRowsProcessor($scope.addIndexColumn, 200);
+                }
                 $scope.gridOptions.onRegisterApiCallback && $scope.gridOptions.onRegisterApiCallback();
             };
             $scope.addIndexColumn = function (renderableRows) {
