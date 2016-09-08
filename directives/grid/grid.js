@@ -6,6 +6,7 @@ angular.module('common.directives').directive('normalGrid', function ($timeout, 
         template: templateStr,
         scope: { normalGrid: '=', pageChange: '=' },
         link: function (scope, iElem, iAttr) {
+            scope.showGrid = false;
             var $scope = scope;
             var defaultOptions = {
                 enableSorting: false,
@@ -25,6 +26,18 @@ angular.module('common.directives').directive('normalGrid', function ($timeout, 
             if ($scope.gridOptions.showCustomPagination) {//如果使用自定义的分页则默认分页不启用
                 $scope.gridOptions.enablePaginationControls = false;
             }
+            $scope.gridOptions.onRegisterApi = function (gridApi) {
+                $scope.gridOptions.gridApi = gridApi;
+                gridApi.core.addRowHeaderColumn({ name: '__sequence', displayName: '#', width: 50, cellTemplate: 'ui-grid/uiGridCell' });
+                gridApi.grid.registerRowsProcessor($scope.addIndexColumn, 200);
+                $scope.gridOptions.onRegisterApiCallback && $scope.gridOptions.onRegisterApiCallback();
+            };
+            $scope.addIndexColumn = function (renderableRows) {
+                angular.forEach(renderableRows, function (row, i) {
+                    row.entity.__sequence = i + 1;
+                });
+                return renderableRows;
+            }
             //容器大小改变处理
             var debounceEvent = null;
             function onResize() {
@@ -38,6 +51,7 @@ angular.module('common.directives').directive('normalGrid', function ($timeout, 
                         }
                         iElem.find('.table-uigrid:first').height(setHeight);
                     }
+                    scope.showGrid = true;
                     debounceEvent = null;
                 }, 50);
             }
@@ -56,7 +70,7 @@ angular.module('common.directives').directive('normalGrid', function ($timeout, 
                 enableFullRowSelection: true, //是否点击行任意位置后选中,默认为false,当为true时，checkbox可以显示但是不可选中
                 enableRowHeaderSelection: false, //是否显示选中checkbox框 ,默认为true
                 enableRowSelection: true, // 行选择是否可用，默认为true;
-                multiSelect: false ,// 是否可以选择多个,默认为true;
+                multiSelect: false,// 是否可以选择多个,默认为true;
                 enableSorting: false,
                 showGridFooter: false,
                 enableGridMenu: true,
