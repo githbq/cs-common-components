@@ -14,7 +14,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 multiSelect: false,// 是否可以选择多个,默认为true;
                 enableSorting: false,
                 showGridFooter: false,
-                enableGridMenu: true,//是否显示表格最右上角的菜单
+                enableGridMenu: false,//是否显示表格最右上角的菜单
                 enableSelectionBatchEvent: true,//默认开启批量选中事件 此时全选复选框才有效果  
                 enableFiltering: false,
                 paginationCurrentPage: 1,
