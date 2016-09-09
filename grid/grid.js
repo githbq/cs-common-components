@@ -15,6 +15,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 enableSorting: false,
                 showGridFooter: false,
                 enableGridMenu: false,//是否显示表格最右上角的菜单
+                enableSelectionBatchEvent: true,//默认开启批量选中事件 此时全选复选框才有效果  
                 enableFiltering: false,
                 paginationCurrentPage: 1,
                 paginationPageSizes: [10, 50, 75, 100],
@@ -85,7 +86,17 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                     }
                 }
             });
+            //复选框全选事件   注意  对象为  gridApi
+        //    gridApi.selection.on.rowSelectionChangedBatch($scope, function (allRows) {
+        //                 console.log(allRows)
+        //                 console.log(gridApi.grid.selection.selectAll);//为true说明本次是全取消操作   为false本次全选中操作
+        //             });
+              //选中checkbox事件
 
+            // gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+            //     console.log(row.isSelected)
+            //     console.log(row.entity)
+            // }); 
             //$scope.gridOptions = {
             //    totalItems: 60,
             //    enableSorting: false,
