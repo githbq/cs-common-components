@@ -14,7 +14,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 multiSelect: false,// 是否可以选择多个,默认为true;
                 enableSorting: false,
                 showGridFooter: false,
-                enableGridMenu: true,
+                enableGridMenu: true,//是否显示表格最右上角的菜单
                 enableFiltering: false,
                 paginationCurrentPage: 1,
                 paginationPageSizes: [10, 50, 75, 100],
@@ -24,11 +24,17 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 enablePagination: true, //是否分页，默认为true
                 enablePaginationControls: true,//使用默认的底部分页
                 showCustomPagination: false,//是否使用自定义的分页组件  默认不用
-                showIndexHeader: false    //显示序列号
+                showIndexHeader: false,   //显示序列号
+                enableColumnMenu: false//显示列的表头菜单
             };
             $scope.gridOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
             if ($scope.gridOptions.showCustomPagination) {//如果使用自定义的分页则默认分页不启用
                 $scope.gridOptions.enablePaginationControls = false;
+            }
+            if ($scope.gridOptions.enableColumnMenu === false) {
+                angular.forEach($scope.gridOptions.columnDefs, function (item, i) {
+                    item.enableColumnMenu = $scope.gridOptions.enableColumnMenu;
+                });
             }
             $scope.gridOptions._onRegisterApi = $scope.gridOptions.onRegisterApi;
             $scope.gridOptions.onRegisterApi = function (gridApi) {
