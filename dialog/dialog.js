@@ -6,7 +6,7 @@ angular.module('common.components').factory('customDialog', function ($uibModal)
                 {
                     windowClass: option.windowClass,//弹窗的样式
                     windowTopClass: option.windowTopClass,//弹窗最外层的样式
-                    animation: angular.isDefined(option.animationsEnabled) ? option.animationsEnabled : true,
+                    animation: angular.isDefined(option.animationsEnabled) ? option.animationsEnabled : false,
                     template: option.template || require('./template.html'),//字符串模板
                     controller: function ($scope, $uibModalInstance) {
                         $scope.title = option.title;

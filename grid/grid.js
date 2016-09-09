@@ -103,8 +103,9 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
             //     $scope.clickMeParent = function () {
             //     alert('me3')
             // }
-            // $scope.labelGridOptions.columnDefs = [
-            //     { field: 'type1', displayName: '咨询分类', width: 150 },
+            //gridOptions.columnDefs[0].enableColumnMenu 是否显示列头的菜单 
+            // $scope.gridOptions.columnDefs = [
+            //     { field: 'type1', displayName: '咨询分类', width: 150 , enableColumnMenu: false},
             //     { field: 'type2', displayName: '二级分类', width: 150 },
             //     { field: 'description', displayName: '问题描述', width: 100 },
             //     { field: 'company', displayName: '接待客服', width: 200 },
