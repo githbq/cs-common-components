@@ -4,6 +4,7 @@ angular.module('common.components').factory('customDialog', function ($uibModal)
         open: function (option) {
             var modalInstance = $uibModal.open(
                 {
+                    backdrop: angular.isDefined(option.backdrop) ? option.backdrop : 'static',
                     windowClass: option.windowClass,//弹窗的样式
                     windowTopClass: option.windowTopClass,//弹窗最外层的样式
                     animation: angular.isDefined(option.animationsEnabled) ? option.animationsEnabled : false,
