@@ -67,7 +67,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                     }
                     $scope.showGrid = true;
                     debounceEvent = null;
-                }, 50);
+                }, 100);
             }
             onResize();//在指令渲染时立即执行一次
 

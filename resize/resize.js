@@ -10,19 +10,46 @@ angular.module('common.components').directive('customResize', function ($window,
                 debounceEvent = $timeout(function () {
                     onResize();
                     debounceEvent = null;
-                }, 100);
+                }, 200);
             }
             //容器大小改变处理
             function onResize() {
+                var windowWidth = win.width();// $window.document.body.clientWidth;
+                var windowHeight = win.height();// $window.document.body.clientHeight;
+                var offsetHeight = 200;
+                setSize(windowHeight, offsetHeight);
+                setPosition(windowWidth, windowHeight);
+            }
+            function setPosition(windowWidth, windowHeight) {
+                //设置绝对居中
                 !element.hasClass('visible') && element.addClass('visible');
-                var windowWidth = $window.document.body.clientWidth;
-                var windowHeight = $window.document.body.clientHeight;
                 var dialogWidth = element.width();
                 var dialogHeight = element.height();
                 var offsetLeft = windowWidth > dialogWidth ? (windowWidth - dialogWidth) / 2 : 0;
                 var offsetTop = windowHeight > dialogHeight ? (windowHeight - dialogHeight) / 2 : 0;
                 element.css({ left: offsetLeft, top: offsetTop });
             }
+            var bodyOriginHeight = null;
+            function setSize(winH, offsetHeight) {
+                var $resizeBody = $(element).find('.resize-body:first');
+                if (!$resizeBody.length) { return; }
+                //设置宽高匹配 
+                console.log('winH' + winH);
+                if (!bodyOriginHeight) {
+                    bodyOriginHeight = $resizeBody.height();
+                }
+                var elemH = $resizeBody.height() + offsetHeight;
+                var css = { height: 'auto', overflowY: 'hidden' };
+                if (elemH <= bodyOriginHeight) {
+                    elemH = bodyOriginHeight;
+                }
+                css = {
+                    'height': (winH - offsetHeight) + 'px',
+                    'overflow-y': 'auto'
+                };
+                $resizeBody.css(css)
+            }
+
             debounce();//在指令渲染时立即执行一次
             win.bind('resize', debounce);
             scope.$on('$destroy', function () {
