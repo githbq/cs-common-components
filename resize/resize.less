@@ -1,6 +1,10 @@
 .custom-resize {
-    visibility: hidden!important;
+    *, & {
+        visibility: hidden!important;
+    }
     &.visible {
-        visibility: visible!important;
+        *, & {
+            visibility: visible!important;
+        }
     }
 }

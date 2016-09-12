@@ -21,7 +21,7 @@ angular.module('common.components').directive('customResize', function ($window,
                 setPosition(windowWidth, windowHeight);
             }
             function setPosition(windowWidth, windowHeight) {
-                //设置绝对居中
+                //设置绝对居中 
                 !element.hasClass('visible') && element.addClass('visible');
                 var dialogWidth = element.width();
                 var dialogHeight = element.height();
