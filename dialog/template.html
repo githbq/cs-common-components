@@ -1,4 +1,7 @@
 <div class="custom-dialog">
+    <div class="icon-container">
+        <span class="glyphicon glyphicon-remove close-icon" ng-click="cancel($event,true)" title="关闭窗口"></span>
+    </div>
     <div class="modal-header" drag-handle>
         <h4 class="modal-title">{{title}}</h4>
     </div>
@@ -9,8 +12,8 @@
         <div class="modal-footer">
             <div class="modal-footer-buttons" ng-if="buttonTemplate" bind-html-compile="buttonTemplate"></div>
             <div class="modal-footer-buttons" ng-if="!buttonTemplate">
-                <button class="btn btn-primary" type="button" ng-click="ok()">{{enterText}}</button>
-                <button class="btn btn-warning" type="button" ng-click="cancel()">{{cancelText}}</button>
+                <button class="btn btn-primary" type="button" ng-click="ok($event)">{{enterText}}</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel($event)">{{cancelText}}</button>
             </div>
         </div>
     </div>

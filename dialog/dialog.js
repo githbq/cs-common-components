@@ -1,11 +1,11 @@
 require('./dialog.less');
 angular.module('common.components').factory('customDialog', function ($templateCache, $uibModal) {
-    $templateCache.put('/dialog/customDialogWindowTemplate',require('./windowtemplate.html'));
+    $templateCache.put('/dialog/customDialogWindowTemplate', require('./windowtemplate.html'));
     return {
         open: function (option) {
             var modalInstance = $uibModal.open(
                 {
-                    windowTemplateUrl:'/dialog/customDialogWindowTemplate',
+                    windowTemplateUrl: '/dialog/customDialogWindowTemplate',
                     backdrop: angular.isDefined(option.backdrop) ? option.backdrop : 'static',
                     windowClass: option.windowClass,//弹窗的样式
                     windowTopClass: option.windowTopClass,//弹窗最外层的样式
@@ -17,19 +17,25 @@ angular.module('common.components').factory('customDialog', function ($templateC
                         $scope.enterText = '确定';
                         $scope.cancelText = '取消';
                         $scope.loadingText = "请稍等";
-                        $scope.ok = function () {
+                        $scope.ok = function ($event) {
                             if (option.okCallback && option.okCallback($scope) !== false) {
                                 $uibModalInstance.close();
                             } else if (!option.okCallback) {
                                 $uibModalInstance.close();
                             }
+                            $event.stopPropagation();
                         };
-                        $scope.cancel = function () {
-                            if (option.cancelCallback && option.cancelCallback($scope) !== false) {
-                                $uibModalInstance.dismiss('cancel');
-                            } else if (!option.cancelCallback) {
-                                $uibModalInstance.dismiss('cancel');
+                        $scope.cancel = function ($event, force) {
+                            if (force) {//右上角的强制关闭
+                                $uibModalInstance.dismiss();
+                            } else {
+                                if (option.cancelCallback && option.cancelCallback($scope) !== false) {
+                                    $uibModalInstance.dismiss('cancel');
+                                } else if (!option.cancelCallback) {
+                                    $uibModalInstance.dismiss('cancel');
+                                }
                             }
+                            $event.stopPropagation();
                         };
                         option.ctrl && option.ctrl($scope, $uibModalInstance);
                     },
