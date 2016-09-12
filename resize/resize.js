@@ -42,8 +42,7 @@ angular.module('common.components').directive('customResize', function ($window,
                 var css = { height: 'auto', overflowY: 'hidden' };
                 if (elemH <= bodyOriginHeight) {
                     elemH = bodyOriginHeight;
-                }
-                debugger
+                } 
                 css = {
                     'height': (winH - offsetHeight) > bodyOriginHeight ? bodyOriginHeight : (winH - offsetHeight) + 'px',
                     'overflow-y': 'auto'
