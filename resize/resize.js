@@ -14,17 +14,17 @@ angular.module('common.components').directive('customResize', function ($window,
             }
             //容器大小改变处理
             function onResize() {
-                var windowWidth = win.width();// $window.document.body.clientWidth;
-                var windowHeight = win.height();// $window.document.body.clientHeight;
-                var offsetHeight = 200;
+                var windowWidth = win.outerWidth();// $window.document.body.clientWidth;
+                var windowHeight = win.outerHeight();// $window.document.body.clientHeight;
+                var offsetHeight =150;
                 setSize(windowHeight, offsetHeight);
                 setPosition(windowWidth, windowHeight);
             }
             function setPosition(windowWidth, windowHeight) {
                 //设置绝对居中 
                 !element.hasClass('visible') && element.addClass('visible');
-                var dialogWidth = element.width();
-                var dialogHeight = element.height();
+                var dialogWidth = element.outerWidth();
+                var dialogHeight = element.outerHeight();
                 var offsetLeft = windowWidth > dialogWidth ? (windowWidth - dialogWidth) / 2 : 0;
                 var offsetTop = windowHeight > dialogHeight ? (windowHeight - dialogHeight) / 2 : 0;
                 element.css({ left: offsetLeft, top: offsetTop });
@@ -36,18 +36,19 @@ angular.module('common.components').directive('customResize', function ($window,
                 //设置宽高匹配 
                 console.log('winH' + winH);
                 if (!bodyOriginHeight) {
-                    bodyOriginHeight = $resizeBody.height();
+                    bodyOriginHeight = $resizeBody.outerHeight();
                 }
                 var elemH = $resizeBody.height() + offsetHeight;
                 var css = { height: 'auto', overflowY: 'hidden' };
                 if (elemH <= bodyOriginHeight) {
                     elemH = bodyOriginHeight;
                 }
+                debugger
                 css = {
-                    'height': (winH - offsetHeight) + 'px',
+                    'height': (winH - offsetHeight) > bodyOriginHeight ? bodyOriginHeight : (winH - offsetHeight) + 'px',
                     'overflow-y': 'auto'
                 };
-                $resizeBody.css(css)
+                $resizeBody.css(css);
             }
 
             debounce();//在指令渲染时立即执行一次
