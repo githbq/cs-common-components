@@ -161,6 +161,7 @@ angular.module( 'common.components' ).factory( 'ibssUtils', function ( $http, to
                     toaster.pop( 'error', 'Response Error', data.message );
                     return;
                 }
+                return data.value ? data.value.model : {};
             }
         }, opt || {} );
         return $http( opt ).error( function ( data, status ) {
