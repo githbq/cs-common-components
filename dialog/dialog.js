@@ -1,8 +1,15 @@
 require('./dialog.less');
 angular.module('common.components').factory('customDialog', function ($templateCache, $uibModal) {
     $templateCache.put('/dialog/customDialogWindowTemplate', require('./windowtemplate.html'));
+
     return {
         open: function (option) {
+            var $windowTemplate = $(require('./windowtemplate.html'));
+
+            if (option.noResize) {
+                $windowTemplate.removeClass('custom-resize');
+            }
+            $templateCache.put('/dialog/customDialogWindowTemplate', $windowTemplate[0].outerHTML);
             var modalInstance = $uibModal.open(
                 {
                     windowTemplateUrl: '/dialog/customDialogWindowTemplate',
