@@ -1,15 +1,12 @@
 require('./dialog.less');
 angular.module('common.components').factory('customDialog', function ($templateCache, $uibModal) {
     $templateCache.put('/dialog/customDialogWindowTemplate', require('./windowtemplate.html'));
-
     return {
         open: function (option) {
-            var $windowTemplate = $(require('./windowtemplate.html'));
-
+            var $template = $(require('./template.html'));
             if (option.noResize) {
-                $windowTemplate.removeClass('custom-resize');
+                $template.find('.resize-body:first').removeClass('resize-body');
             }
-            $templateCache.put('/dialog/customDialogWindowTemplate', $windowTemplate[0].outerHTML);
             var modalInstance = $uibModal.open(
                 {
                     windowTemplateUrl: '/dialog/customDialogWindowTemplate',
@@ -17,7 +14,7 @@ angular.module('common.components').factory('customDialog', function ($templateC
                     windowClass: option.windowClass,//弹窗的样式
                     windowTopClass: option.windowTopClass,//弹窗最外层的样式
                     animation: angular.isDefined(option.animationsEnabled) ? option.animationsEnabled : false,
-                    template: option.template || require('./template.html'),//字符串模板
+                    template: option.template || $template.get(0).outerHTML,//字符串模板
                     controller: function ($scope, $uibModalInstance) {
                         $scope.title = option.title;
                         $scope.content = option.content;
