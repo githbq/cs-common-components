@@ -1,4 +1,4 @@
-angular.module('common.components').factory('ibssUtils', function ($http) {
+angular.module('common.components').factory('ibssUtils', function ($http,toaster) {
     var factory = {
         /**
            * html 转义
@@ -153,10 +153,14 @@ angular.module('common.components').factory('ibssUtils', function ($http) {
                 }
                 if (!data.success) {
                     console.warn('请求错误  ' + data.message);
+                    toaster.pop('error', null,  data.message, 5000);
+                    return false;
                 }
 
             }).error(function (data, status, config, headers) {
                 console.warn('网络请求错误')
+                 toaster.pop('error', null, '网络请求错误...', 5000);
+                 return false;
             });
     }
     factory.checkBlankSpace = function (str) {
