@@ -10,8 +10,8 @@
         <div class="modal-body resize-body" bind-html-compile="content">
         </div>
         <div class="modal-footer">
-            <div class="modal-footer-buttons" ng-if="buttonTemplate" bind-html-compile="buttonTemplate"></div>
-            <div class="modal-footer-buttons" ng-if="!buttonTemplate">
+            <div class="modal-footer-buttons">
+                <span class="add-buttons" ng-if="buttonTemplate" bind-html-compile="buttonTemplate"></span>
                 <button class="btn ok-button" ng-class="{'btn-warning':submiting,'btn-primary':!submiting}" type="button" ng-click="!submiting && ok($event);" ng-bind="!submiting?enterText:(submitingText||'提交中...')"></button>
                 <button class="btn btn-default cancel-button" type="button" ng-click="cancel($event)">{{cancelText}}</button>
             </div>

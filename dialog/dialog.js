@@ -15,7 +15,9 @@ angular.module('common.components').factory('customDialog', function ($templateC
                     windowTopClass: option.windowTopClass,//弹窗最外层的样式
                     animation: angular.isDefined(option.animationsEnabled) ? option.animationsEnabled : false,
                     template: option.template || $template.get(0).outerHTML,//字符串模板
+                    buttonTemplate: null,//增加的按钮
                     controller: function ($scope, $uibModalInstance) {
+                        $scope.buttonTemplate = option.buttonTemplate;
                         $scope.title = option.title;
                         $scope.content = option.content;
                         $scope.enterText = '确定';
@@ -42,7 +44,7 @@ angular.module('common.components').factory('customDialog', function ($templateC
                             $event.stopPropagation();
                         };
                         function closeDialog() {
-                            $uibModalInstance.close(); 
+                            $uibModalInstance.close();
                         }
                         function dismissDialog() {
                             $uibModalInstance.dismiss('cancel');
