@@ -135,9 +135,17 @@ angular.module('common.components').factory('ibssUtils', function ($http) {
     factory.api = function (opt, mask) {
         //默认设置
         opt = _.extend({
-            type: 'post',
+            method: 'POST',
             cache: false,
-            timeout: opt.TIME_OUT,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            transformRequest: function (obj) {
+                var str = [];
+                for (var p in obj) {
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+                return str.join("&");
+            },
+            timeout: opt.TIME_OUT || 30000,
             dataType: 'json'
         }, opt || {});
         return $http(opt).success(
