@@ -22,7 +22,7 @@ angular.module('common.components').factory('customDialog', function ($templateC
                         $scope.cancelText = '取消';
                         $scope.loadingText = "请稍等";
                         $scope.ok = function ($event) {
-                            if (option.okCallback && option.okCallback($scope) !== false) {
+                            if (option.okCallback && option.okCallback($scope, closeDialog) !== false) {
                                 $uibModalInstance.close();
                             } else if (!option.okCallback) {
                                 $uibModalInstance.close();
@@ -33,7 +33,7 @@ angular.module('common.components').factory('customDialog', function ($templateC
                             if (force) {//右上角的强制关闭
                                 $uibModalInstance.dismiss();
                             } else {
-                                if (option.cancelCallback && option.cancelCallback($scope) !== false) {
+                                if (option.cancelCallback && option.cancelCallback($scope, dismissDialog) !== false) {
                                     $uibModalInstance.dismiss('cancel');
                                 } else if (!option.cancelCallback) {
                                     $uibModalInstance.dismiss('cancel');
@@ -41,6 +41,12 @@ angular.module('common.components').factory('customDialog', function ($templateC
                             }
                             $event.stopPropagation();
                         };
+                        function closeDialog() {
+                            $uibModalInstance.close(); 
+                        }
+                        function dismissDialog() {
+                            $uibModalInstance.dismiss('cancel');
+                        }
                         option.ctrl && option.ctrl($scope, $uibModalInstance);
                     },
                     size: option.size,//type:string,一个类名 用来设置弹窗内容的样式,比如宽高    不写或者'sm'或者'lg'  最终样式会自动带上前缀比如:modal-sm
