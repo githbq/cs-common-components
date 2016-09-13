@@ -132,20 +132,17 @@ angular.module('common.components').factory('ibssUtils', function ($http) {
             return v + unit;
         }
     };
-    factory.api = function (opt, mask) {
+    factory.api = function (opt, flagOption) {
         //默认设置
+
+        flagOption = _.extend({
+            flag: false,
+            title:'请再次确认'
+        }, flagOption || {});
+        
         opt = _.extend({
             method: 'POST',
             cache: false,
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            transformRequest: function (obj) {
-                var str = [];
-                for (var p in obj) {
-                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                }
-                return str.join("&");
-            },
-            timeout: opt.TIME_OUT || 30000,
             dataType: 'json'
         }, opt || {});
         return $http(opt).success(
