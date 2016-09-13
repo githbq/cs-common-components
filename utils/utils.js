@@ -136,20 +136,24 @@ angular.module( 'common.components' ).factory( 'ibssUtils', function ( $http, to
             return v + unit;
         }
     };
-    factory.api = function ( opt ) {
+    factory.api = function ( opt, flagOption ) {
+        flagOption = _.extend( {
+            flag: false,
+            title: '请再次确认'
+        }, flagOption || {} );
         //默认设置
         opt = _.extend( {
             method: 'POST',
             cache: false,
             timeout: 30000,
-            transformResponse: function(response, headers, status) {
+            transformResponse: function ( response, headers, status ) {
                 if ( status < 200 || status >= 300 ) {
                     return;
                 }
                 var data = {};
                 try {
-                    data = JSON.parse(response);
-                } catch (ex) {
+                    data = JSON.parse( response );
+                } catch ( ex ) {
                     toaster.pop( 'error', 'Response Error', 'Response json parsed failed.' );
                     return;
                 }
@@ -157,14 +161,12 @@ angular.module( 'common.components' ).factory( 'ibssUtils', function ( $http, to
                     toaster.pop( 'error', 'Response Error', data.message );
                     return;
                 }
-                return data.value ? data.value.model : {};
             }
         }, opt || {} );
         return $http( opt ).error( function ( data, status ) {
             toaster.pop( 'error', 'Request Failed', 'Status: ' + status );
         } );
     };
-
     factory.checkBlankSpace = function ( str ) {
         while ( str.lastIndexOf( " " ) >= 0 ) {
             str = str.replace( " ", "" );
@@ -177,6 +179,5 @@ angular.module( 'common.components' ).factory( 'ibssUtils', function ( $http, to
         }
         return true;
     };
-
     return factory;
 } );
