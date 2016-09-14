@@ -37,6 +37,11 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                     item.enableColumnMenu = $scope.gridOptions.enableColumnMenu;
                 });
             }
+            _.each($scope.gridOptions.columnDefs, function (item, i) {
+                if (item.field === 'operation') {
+                    item.cellClass = "ui-grid-cell-operation";
+                }
+            });
             $scope.gridOptions._onRegisterApi = $scope.gridOptions.onRegisterApi;
             $scope.gridOptions.onRegisterApi = function (gridApi) {
                 $scope.gridOptions.gridApi = gridApi;
@@ -87,11 +92,11 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 }
             });
             //复选框全选事件   注意  对象为  gridApi
-        //    gridApi.selection.on.rowSelectionChangedBatch($scope, function (allRows) {
-        //                 console.log(allRows)
-        //                 console.log(gridApi.grid.selection.selectAll);//为true说明本次是全取消操作   为false本次全选中操作
-        //             });
-              //选中checkbox事件
+            //    gridApi.selection.on.rowSelectionChangedBatch($scope, function (allRows) {
+            //                 console.log(allRows)
+            //                 console.log(gridApi.grid.selection.selectAll);//为true说明本次是全取消操作   为false本次全选中操作
+            //             });
+            //选中checkbox事件
 
             // gridApi.selection.on.rowSelectionChanged($scope, function (row) {
             //     console.log(row.isSelected)

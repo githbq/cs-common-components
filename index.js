@@ -4,7 +4,7 @@ require('angular-drag');
 angular.module('common.components', ['ui.grid', 'ui.grid.selection', 'angular-drag', 'ui.grid.moveColumns', 'ui.grid.autoResize', 'ui.grid.pinning', 'ui.grid.resizeColumns', 'ui.grid.cellNav', 'ui.grid.pagination']);
 require('./resize/resize');
 require('./dialog/dialog');
-require('./bindhtmlcompile/bindhtmlcompile');
+require('./bind_html_compile/bind_html_compile');
 require('./grid/grid');
 require('./loading/loading');
 require('./scroll/scrollservice');
