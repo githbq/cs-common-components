@@ -1,0 +1,20 @@
+<div class="custom-dialog">
+    <div class="icon-container">
+        <span class="glyphicon glyphicon-remove close-icon" ng-click="cancel($event,true)" title="关闭窗口"></span>
+    </div>
+    <div class="modal-header" drag-handle>
+        <h4 class="modal-title"><span class="glyphicon glyphicon-list"></span>&nbsp;<span class="header-title">{{title}}</span></h4>
+    </div>
+    <div class="custom-dialog-body">
+        <div custom-loading="showLoading" data-text="{{loadingText}}"></div>
+        <div class="modal-body resize-body" bind-html-compile="content">
+        </div>
+        <div class="modal-footer">
+            <div class="modal-footer-buttons">
+                <span class="add-buttons" ng-if="buttonTemplate" bind-html-compile="buttonTemplate"></span>
+                <button class="btn ok-button" ng-class="{'btn-warning':submiting,'btn-primary':!submiting}" type="button" ng-click="!submiting && ok($event);" ng-bind="!submiting?enterText:(submitingText||'提交中...')"></button>
+                <button class="btn btn-default cancel-button" type="button" ng-click="cancel($event)">{{cancelText}}</button>
+            </div>
+        </div>
+    </div>
+</div>
