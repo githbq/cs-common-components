@@ -2,14 +2,14 @@
   "name": "ibss-common-components",
   "version": "1.0.0",
   "description": "ibss-common-components",
-  "scripts": { 
-  },
+  "scripts": {},
   "repository": "",
   "author": "ibss-common-components",
-  "license": "ISC", 
+  "license": "ISC",
   "dependencies": {
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
+    "angular-bootstrap-confirm": "^2.3.0",
     "angular-drag": "0.0.1-beta",
     "angular-local-storage": "^0.2.7",
     "angular-sanitize": "^1.5.8",
@@ -17,7 +17,7 @@
     "angular-ui-grid": "^3.2.6",
     "angular-ui-layout": "^1.4.2",
     "angular-ui-router": "^0.3.1",
-    "angularjs-toaster": "^2.0.0", 
+    "angularjs-toaster": "^2.0.0",
     "bootstrap": "^3.3.7",
     "jquery": "^3.1.0",
     "underscore": "^1.8.3"
