@@ -137,6 +137,11 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
             //         cellTemplate: '<button ng-click="grid.appScope.$parent.clickMeParent(row)">点我{{row.entity}}</button>'
             //     }
             // ];
+
+            //uigrid表格內图标按钮案例
+            //<button class="btn btn-default grid-operation-btn-edit" ><span class="glyphicon glyphicon-edit"></span>编辑</button>
+             //<button class="btn btn-default grid-operation-btn-del" ><span class="glyphicon glyphicon-remove"></span>删除</button>
+
         }
     };
 });
