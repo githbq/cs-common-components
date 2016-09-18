@@ -1,0 +1,8 @@
+<div class="grid-wrapper" ng-class="{visible:showGrid}">
+    <div ui-grid="gridOptions" class="table-uigrid" ui-grid-selection ui-grid-pagination ui-grid-resize-columns ui-grid-cell-nav ui-grid-move-columns ui-grid-auto-resize></div>
+    <div class="pagination-wrapper" ng-if="gridOptions.showCustomPagination">
+        <uib-pagination class="normal" first-text="首页" previous-text="上一页" next-text="下一页" last-text="尾页" total-items="gridOptions.totalItems" ng-model="gridOptions.paginationCurrentPage" items-per-page="gridOptions.paginationPageSize" max-size="5" class="pagination-sm"
+            boundary-links="true" force-ellipses="true">
+        </uib-pagination>
+    </div>
+</div>
