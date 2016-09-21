@@ -78,7 +78,6 @@ angular.module('common.components').factory('ibssUtils', function ($http, toaste
         //根据当前时间输出易读的时间
         ////////////////
         translateTime: function (time) {
-            debugger
             if (!time) {
                 throw ('time 不能为空');
             }

@@ -16,7 +16,9 @@ angular.module('common.components').factory('customDialog', function ($templateC
                     animation: angular.isDefined(option.animationsEnabled) ? option.animationsEnabled : false,
                     template: option.template || $template.get(0).outerHTML,//字符串模板
                     buttonTemplate: null,//增加的按钮
+                    windowStyle: option.windowStyle || { width: '1000px' },//给窗体加样式
                     controller: function ($scope, $uibModalInstance) {
+                        $scope.windowStyle =option.windowStyle;// option.windowStyle;
                         $scope.buttonTemplate = option.buttonTemplate;
                         $scope.title = option.title;
                         $scope.content = option.content;
@@ -61,5 +63,16 @@ angular.module('common.components').factory('customDialog', function ($templateC
             return modalInstance;
         }
     }
+}).directive('customDialog', function () {
+    return {
+        restrict:'C',
+        scope: { windowStyle: '=' },
+        link: function ($scope, iElem, iAttr) {
+            debugger
+            if ($scope.windowStyle) {
+                iElem.parents('.modal-dialog:first').css($scope.windowStyle);
+            }
+        }
+    };
 })
     ;
