@@ -13,8 +13,6 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
             $scope.newDateOptions = $scope.dateOptions||{};
             $scope.newAttrOptions= $scope.attrOptions||{}; 
 
-            $scope.newCheckDate = $scope.checkDate || new Date();    //ng-model对象
-
             var defaultDate = {
                 customClass :function(){},              //一个可选的函数，设置日期面板中每个日期的样式。传入参数为一个json对象{date: obj1, mode: obj2}，返回值为类的名字
                 dateDisabled: function(){},             //一个可选的函数，设置日期面板中每个日期是否可选。传入参数为一个json对象{date: obj1, mode: obj2}，返回值为bool类型
@@ -40,7 +38,7 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
             var defaultAttr = {
                 altInputFormats:['yyyy/MM/dd'],                 //手动输入日期时可接受的格式
                 clearText:'清空',                               //清空按钮的文本
-                required:true,                                  //是否必填
+                required:false,                                  //是否必填
                 closeOnDateSelection:true,                      //选择一个日期后是否关闭日期面板
                 closeText:'关闭',                               //关闭按钮的文本
                 currentText:'今天',                             //今天按钮的文本
@@ -52,12 +50,15 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
                 popupPlacement:'auto bottom-left',              // 在位置前加一个auto,表示日期面板会定位在它最近一个可以滚动的父元素中.可以设置的位置有:top top-left      top-right          bottom                                                       //bottom-left      bottom-right         left       left-top       left-bottom      right          right-top          right-bottom 
                 uibDatepickerPopup:'yyyy/MM/dd'                 //显示日期的格式。可使用的格式见上面的列表。
             }
-            debugger
+            
              $scope.newDateOptions = angular.extend({}, defaultDate, $scope.newDateOptions);
              $scope.newAttrOptions = angular.extend({}, defaultAttr, $scope.newAttrOptions);
+
              $scope.open = function(){
                  $scope.newAttrOptions.isOpen = true;
              }
+
+             //<input type="" name="" value="" common-datepicker check-date="dat" date-options="dateOptions">例子
         }
     };
 });
