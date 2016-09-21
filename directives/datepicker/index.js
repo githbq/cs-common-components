@@ -53,7 +53,9 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
             
              $scope.newDateOptions = angular.extend({}, defaultDate, $scope.newDateOptions);
              $scope.newAttrOptions = angular.extend({}, defaultAttr, $scope.newAttrOptions);
-
+             if( $scope.newAttrOptions.required && !$scope.checkDate ){
+                 $scope.checkDate = new Date();
+             }
              $scope.open = function(){
                  $scope.newAttrOptions.isOpen = true;
              }
