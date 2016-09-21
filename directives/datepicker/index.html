@@ -1,0 +1,11 @@
+<div class="date-container">
+    <form novalidate class="form-inline">
+        <div class="form-group input-group date-input">
+            <input type="text" class="form-control " uib-datepicker-popup="{{attrOptions.uibDatepickerPopup}}" ng-model="dateOptions.checkDate" is-open="attrOptions.isOpen" ng-required="attrOptions.required" 
+                close-text="{{attrOptions.closeText}}" clear-text="{{attrOptions.clearText}}" current-text="{{attrOptions.currentText}}" alt-input-formats="attrOptions.altInputFormats" datepicker-options="dateOptions" datepicker-append-to-body="{{attrOptions.datepickerAppendToBody}}" on-open-focus="{{attrOptions.onOpenFocus}}" show-button-bar="{{attrOptions.showButtonBar}}" type="attrOptions.type" popup-placement="{{attrOptions.popupPlacement}}"   />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </div>
+    </form>
+</div>
