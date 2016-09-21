@@ -5,15 +5,15 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
         restrict: 'CA',
         template: templateStr,
         replace:true,
-        scope: { dateOptions: '=', attrOptions: '=' },
+        scope: { dateOptions: '=', attrOptions: '=',checkDate:'=checkDate' },
         link: function ($scope, iElem, iAttr) {
             
         },
         controller: function ($scope ) {
-            // var newOption = $scope.dateOptionsd||{};
-            //  var newAttr = $scope.dateOptionsd||{};
-            // $scope.dateOptions = newOption;
-            // $scope.attrOptions = newAttr;
+            $scope.newDateOptions = $scope.dateOptions||{};
+            $scope.newAttrOptions= $scope.attrOptions||{}; 
+
+            $scope.newCheckDate = $scope.checkDate || new Date();    //ng-model对象
 
             var defaultDate = {
                 customClass :function(){},              //一个可选的函数，设置日期面板中每个日期的样式。传入参数为一个json对象{date: obj1, mode: obj2}，返回值为类的名字
@@ -34,7 +34,7 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
                 showWeeks: false,                        //是否显示面板中的日期是当年的第几周
                 startingDay: 1,                         //一个星期从周几开始。可设置为0到6的数字，0表示周日，6表示周六
                 yearRows: 4,                            //选择年份时显示多少行
-                checkDate:null,
+                //checkDate:$scope.currentDate,
                 yearColumns: 5                         //选择年份时显示多少列
             };
             var defaultAttr = {
@@ -52,12 +52,11 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
                 popupPlacement:'auto bottom-left',              // 在位置前加一个auto,表示日期面板会定位在它最近一个可以滚动的父元素中.可以设置的位置有:top top-left      top-right          bottom                                                       //bottom-left      bottom-right         left       left-top       left-bottom      right          right-top          right-bottom 
                 uibDatepickerPopup:'yyyy/MM/dd'                 //显示日期的格式。可使用的格式见上面的列表。
             }
-
-             $scope.dateOptions = angular.extend({}, defaultDate, $scope.dateOptions);
-             $scope.attrOptions = angular.extend({}, defaultAttr, $scope.attrOptions);
             debugger
+             $scope.newDateOptions = angular.extend({}, defaultDate, $scope.newDateOptions);
+             $scope.newAttrOptions = angular.extend({}, defaultAttr, $scope.newAttrOptions);
              $scope.open = function(){
-                 $scope.attrOptions.isOpen = true;
+                 $scope.newAttrOptions.isOpen = true;
              }
         }
     };
