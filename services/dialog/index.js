@@ -68,7 +68,6 @@ angular.module('common.components').factory('customDialog', function ($templateC
         restrict:'C',
         scope: { windowStyle: '=' },
         link: function ($scope, iElem, iAttr) {
-            debugger
             if ($scope.windowStyle) {
                 iElem.parents('.modal-dialog:first').css($scope.windowStyle);
             }
