@@ -60,6 +60,16 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
                  $scope.newAttrOptions.isOpen = true;
              }
 
+            //时间转化为秒
+            $scope.$watch('checkDate', () => {
+                if(_.isDate( $scope.checkDate ) ){
+                     console.log($scope.checkDate)
+                      $scope.checkDate =  $scope.checkDate ?  $scope.checkDate.getTime():'';
+                    console.log($scope.checkDate)
+                }
+                
+            }); 
+           
              //<input type="" name="" value="" common-datepicker check-date="dat" date-options="dateOptions">例子
         }
     };
