@@ -7,7 +7,7 @@ angular.module('common.components').directive('customResize', function ($window,
             function debounce() {
                 var debounceEvent = null;
                 if (debounceEvent) $timeout.cancel(debounceEvent);
-                debounceEvent = $timeout(function () {
+                debounceEvent = $timeout(function () {   
                     onResize();
                     debounceEvent = null;
                 }, 200);

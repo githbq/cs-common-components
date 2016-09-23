@@ -26,7 +26,9 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 enablePaginationControls: true,//使用默认的底部分页
                 showCustomPagination: false,//是否使用自定义的分页组件  默认不用
                 showIndexHeader: false,   //显示序列号
-                enableColumnMenu: false//显示列的表头菜单
+                enableColumnMenu: false,//显示列的表头菜单
+                enableHorizontalScrollbar: 0, //grid水平滚动条是否显示, 0-不显示  1-显示
+                enableVerticalScrollbar: 1 //grid垂直滚动条是否显示, 0-不显示  1-显示
             };
             $scope.gridOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
             if ($scope.gridOptions.showCustomPagination) {//如果使用自定义的分页则默认分页不启用
@@ -140,7 +142,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
 
             //uigrid表格內图标按钮案例
             //<button class="btn btn-default grid-operation-btn-edit" ><span class="glyphicon glyphicon-edit"></span>编辑</button>
-             //<button class="btn btn-default grid-operation-btn-del" ><span class="glyphicon glyphicon-remove"></span>删除</button>
+            //<button class="btn btn-default grid-operation-btn-del" ><span class="glyphicon glyphicon-remove"></span>删除</button>
 
         }
     };
