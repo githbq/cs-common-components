@@ -3,3 +3,4 @@ require('./grid');
 require('./datepicker');
 require('./loading');
 require('./resize'); 
+require('./permission');
