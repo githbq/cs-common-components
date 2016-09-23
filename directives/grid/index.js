@@ -8,6 +8,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
         link: function ($scope, iElem, iAttr) {
             $scope.showGrid = false;
             var defaultOptions = {
+                loading: false,//是否正处于加载状态 
                 enableFullRowSelection: true, //是否点击行任意位置后选中,默认为false,当为true时，checkbox可以显示但是不可选中
                 enableRowHeaderSelection: false, //是否显示选中checkbox框 ,默认为true
                 enableRowSelection: true, // 行选择是否可用，默认为true;
