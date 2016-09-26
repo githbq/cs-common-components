@@ -64,9 +64,14 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
             //时间转化为秒
             $scope.$watch('innerModel', () => {
                 debugger
-                console.log($scope.ngModel)
+                
+                if(_.isDate( $scope.innerModel ) ){
+                     console.log($scope.innerModel)
                       $scope.ngModel =  $scope.innerModel ?  $scope.innerModel.getTime():'';
                     console.log($scope.ngModel)
+                }else if( _.isUndefined($scope.innerModel) ){
+                     $scope.ngModel ='';
+                }
             }); 
            
              //<input type="" name="" value="" common-datepicker check-date="dat" date-options="dateOptions">例子
