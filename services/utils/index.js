@@ -149,18 +149,18 @@ angular.module('common.components').factory('ibssUtils', function ($http, toaste
                 try {
                     data = JSON.parse(response);
                 } catch (ex) {
-                    toaster.pop('error', 'Response Error', 'Response json parsed failed.');
+                    toaster.pop('error', '响应错误', '返回数据解析失败。');
                     return;
                 }
                 if (data.success != undefined && !data.success) {
-                    toaster.pop('error', 'Response Error', data.message);
+                    toaster.pop('error', '响应错误', data.message);
                     return;
                 }
                 return { success: data.success, model: data.value ? data.value.model : {} };
             }
         }, opt || {});
         return $http(opt).error(function (data, status) {
-            toaster.pop('error', 'Request Failed', 'Status: ' + status);
+            toaster.pop('error', '请求错误', 'Status: ' + status);
         });
     };
     factory.checkBlankSpace = function (str) {
