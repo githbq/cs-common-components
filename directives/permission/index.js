@@ -3,8 +3,9 @@ angular.module('common.components').directive('permission', function ($rootScope
         priority: 0,
         link: ($scope, iElem, iAttr) => {
             //$rootScope.permissions=['1','2','3'];
+            console.log($rootScope)
             var codes = iAttr['permission'] = '' || iAttr['permission'].split(',');
-            var enabled = _.intersection($rootScope.permissions, codes).length > 0;
+            var enabled = _.intersection($rootScope.modules, codes).length > 0;
             if(!enabled){
                 iElem.remove();
             }

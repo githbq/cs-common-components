@@ -1,11 +1,9 @@
-<div class="date-container">
-    <form novalidate class="form-inline">
-        <div class="form-group input-group date-input">
-            <input type="text" class="form-control " uib-datepicker-popup="{{newAttrOptions.uibDatepickerPopup}}" ng-model="checkDate" is-open="newAttrOptions.isOpen" ng-required="newAttrOptions.required" 
-                close-text="{{newAttrOptions.closeText}}" clear-text="{{newAttrOptions.clearText}}" current-text="{{newAttrOptions.currentText}}" alt-input-formats="newAttrOptions.altInputFormats" datepicker-options="newDateOptions" datepicker-append-to-body="{{newAttrOptions.datepickerAppendToBody}}" on-open-focus="{{newAttrOptions.onOpenFocus}}" show-button-bar="{{newAttrOptions.showButtonBar}}" type="newAttrOptions.type" popup-placement="{{newAttrOptions.popupPlacement}}"   />
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
-            </span>
-        </div>
-    </form>
+<div class="date-container ">
+    <div class=" input-group date-input">
+        <input type="text" class="form-control " uib-datepicker-popup="{{newAttrOptions.uibDatepickerPopup}}" ng-model="innerModel" is-open="newAttrOptions.isOpen" ng-required="newAttrOptions.required" 
+            close-text="{{newAttrOptions.closeText}}" clear-text="{{newAttrOptions.clearText}}" current-text="{{newAttrOptions.currentText}}" alt-input-formats="newAttrOptions.altInputFormats" datepicker-options="newDateOptions" datepicker-append-to-body="{{newAttrOptions.datepickerAppendToBody}}" on-open-focus="{{newAttrOptions.onOpenFocus}}" ng-click="open()" show-button-bar="{{newAttrOptions.showButtonBar}}" type="newAttrOptions.type" popup-placement="{{newAttrOptions.popupPlacement}}"   />
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+    </div>
 </div>

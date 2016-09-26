@@ -4,12 +4,13 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
     return {
         restrict: 'CA',
         template: templateStr,
-        replace:true,
-        scope: { dateOptions: '=', attrOptions: '=',checkDate:'=checkDate' },
+        replace:false,
+        scope: { dateOptions: '=', attrOptions: '=',ngModel:'=' },
         link: function ($scope, iElem, iAttr) {
             
         },
         controller: function ($scope ) {
+            $scope.innerModel=$scope.ngModel;
             $scope.newDateOptions = $scope.dateOptions||{};
             $scope.newAttrOptions= $scope.attrOptions||{}; 
 
@@ -61,13 +62,11 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
              }
 
             //时间转化为秒
-            $scope.$watch('checkDate', () => {
-                if(_.isDate( $scope.checkDate ) ){
-                     console.log($scope.checkDate)
-                      $scope.checkDate =  $scope.checkDate ?  $scope.checkDate.getTime():'';
-                    console.log($scope.checkDate)
-                }
-                
+            $scope.$watch('innerModel', () => {
+                debugger
+                console.log($scope.ngModel)
+                      $scope.ngModel =  $scope.innerModel ?  $scope.innerModel.getTime():'';
+                    console.log($scope.ngModel)
             }); 
            
              //<input type="" name="" value="" common-datepicker check-date="dat" date-options="dateOptions">例子
