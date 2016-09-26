@@ -56,6 +56,7 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
              $scope.newAttrOptions = angular.extend({}, defaultAttr, $scope.newAttrOptions);
              if( $scope.newAttrOptions.required && !$scope.ngModel ){
                 $scope.innerModel = new Date();
+                $scope.ngModel  = new Date();
              }
              $scope.open = function(){
                  $scope.newAttrOptions.isOpen = true;
