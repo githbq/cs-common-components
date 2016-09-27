@@ -13,7 +13,6 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
             $scope.innerModel=$scope.ngModel;
             $scope.newDateOptions = $scope.dateOptions||{};
             $scope.newAttrOptions= $scope.attrOptions||{}; 
-
             var defaultDate = {
                 customClass :function(){},              //一个可选的函数，设置日期面板中每个日期的样式。传入参数为一个json对象{date: obj1, mode: obj2}，返回值为类的名字
                 dateDisabled: function(){},             //一个可选的函数，设置日期面板中每个日期是否可选。传入参数为一个json对象{date: obj1, mode: obj2}，返回值为bool类型
@@ -55,8 +54,8 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
              $scope.newDateOptions = angular.extend({}, defaultDate, $scope.newDateOptions);
              $scope.newAttrOptions = angular.extend({}, defaultAttr, $scope.newAttrOptions);
              if( $scope.newAttrOptions.required && !$scope.ngModel ){
-                $scope.innerModel = new Date();
-                $scope.ngModel  = new Date();
+                $scope.innerModel = $scope.ngModel = new Date();
+                //$scope.ngModel  = new Date();
              }
              $scope.open = function(){
                  $scope.newAttrOptions.isOpen = true;
