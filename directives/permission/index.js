@@ -3,7 +3,7 @@ angular.module('common.components').directive('permission', function ($rootScope
         priority: 0,
         controller:( $scope, $element, $attrs )=>{
              //$rootScope.permissions=['1','2','3'];
-             debugger
+    
             var codes = $attrs['permission'] = '' || $attrs['permission'].split(',');
             var enabled = _.intersection($rootScope.modules, codes).length > 0;
             if(!enabled){
