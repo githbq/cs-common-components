@@ -1,13 +1,17 @@
 angular.module('common.components').directive('permission', function ($rootScope) {
     return {
         priority: 0,
-        link: ($scope, iElem, iAttr) => {
-            //$rootScope.permissions=['1','2','3'];
-            var codes = iAttr['permission'] = '' || iAttr['permission'].split(',');
+        controller:( $scope, $element, $attrs )=>{
+             //$rootScope.permissions=['1','2','3'];
+             debugger
+            var codes = $attrs['permission'] = '' || $attrs['permission'].split(',');
             var enabled = _.intersection($rootScope.modules, codes).length > 0;
             if(!enabled){
-                iElem.remove();
+                $element.remove();
             }
+        },
+        link: ($scope, iElem, iAttr) => {
+           
         }
     };
 });
