@@ -5,12 +5,12 @@ angular.module('common.components').directive('permission', function ($rootScope
             //$rootScope.permissions=['1','2','3'];
 
             $rootScope.$watch('modules', function (nv, ov) {
-                //console.log('=== Modules changed: ' + nv);
+                console.log('=== Modules changed: ' + nv);
                 $scope.onModulesChanged(nv, $element);
             });
             $scope.onModulesChanged = function (modules, $elem) {
                 var codes = $attrs.permission && $attrs.permission.split(',');
-                //console.log('=== Scope permissons: ' + $attrs.permission);
+                console.log('=== Scope permissons: ' + $attrs.permission);
                 var enabled = _.intersection(modules, codes).length > 0;
                 if (!enabled) {
                     $elem.remove();
