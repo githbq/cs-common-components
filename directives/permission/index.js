@@ -19,7 +19,9 @@ angular.module('common.components').directive('permission', function ($rootScope
                 console.log('=== Scope permissons: ' + $attrs.permission);
                 var enabled = _.intersection(modules, codes).length > 0;
                 if (!enabled) {
-                    $elem.remove();
+                    $elem.hide();
+                }else{
+                     $elem.show();
                 }
             }
         },
