@@ -63,7 +63,7 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
 
             //时间转化为秒
             $scope.$watch('innerModel', () => {
-                debugger
+                
                 if(_.isDate( $scope.innerModel ) ){
                      console.log($scope.innerModel)
                       $scope.ngModel =  $scope.innerModel ?  $scope.innerModel.getTime():'';
