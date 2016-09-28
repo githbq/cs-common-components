@@ -9,11 +9,12 @@ angular.module('common.components').directive('permission', function ($rootScope
                 if(_.isUndefined(nv) ){
                     
                 }else if( _.isArray(nv) ){
-                    $scope.onModulesChanged(nv, $element);
+                    $scope.onModulesChanged(nv, $element,$attrs);
                 }
                 
             });
-            $scope.onModulesChanged = function (modules, $elem) {
+            $scope.onModulesChanged = function (modules, $elem,$attrs) {
+                debugger
                 var codes = $attrs.permission && $attrs.permission.split(',');
                 console.log('=== Scope permissons: ' + $attrs.permission);
                 var enabled = _.intersection(modules, codes).length > 0;
