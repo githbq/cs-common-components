@@ -18,7 +18,7 @@ angular.module('common.components').directive('permission', function ($rootScope
                 var codes = $attrs.permission && $attrs.permission.split(',');
                 console.log('=== Scope permissons: ' + $attrs.permission);
                 var enabled = _.intersection(modules, codes).length > 0;
-                alert(enabled)
+                console.log(enabled+'  dddd')
                 if (!enabled) {
                     $elem.hide();
                 }else{
