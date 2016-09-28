@@ -6,7 +6,9 @@ angular.module('common.components').directive('permission', function ($rootScope
 
             $rootScope.$watch('modules', function (nv, ov) {
                 console.log('=== Modules changed: ' + nv);
-                if( !_.isUndefined(nv) ){
+                if(_.isUndefined(nv) ){
+                    
+                }else if( _.isArray(nv) ){
                     $scope.onModulesChanged(nv, $element);
                 }
                 
