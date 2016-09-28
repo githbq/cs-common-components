@@ -6,7 +6,10 @@ angular.module('common.components').directive('permission', function ($rootScope
 
             $rootScope.$watch('modules', function (nv, ov) {
                 console.log('=== Modules changed: ' + nv);
-                $scope.onModulesChanged(nv, $element);
+                if( !_.isUndefined(nv) ){
+                    $scope.onModulesChanged(nv, $element);
+                }
+                
             });
             $scope.onModulesChanged = function (modules, $elem) {
                 var codes = $attrs.permission && $attrs.permission.split(',');
