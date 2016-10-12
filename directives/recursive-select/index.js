@@ -18,7 +18,7 @@ angular.module('common.components').directive('recursiveSelect', function ($q) {
                         if (cache[key]) {
                             nextArrItem.arr = cache[key];
                         } else {
-                            $scope.onFillData(parentSelectedValue, nextArrItem, i).then(function (result) {
+                            $scope.onFillData(parentSelectedValue, nextArrItem, i - 1).then(function (result) {
                                 result = result || [];
                                 result.unshift(emptyOption);
                                 nextArrItem.arr = cache[key] = result;
