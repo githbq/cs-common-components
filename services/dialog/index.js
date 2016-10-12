@@ -4,11 +4,16 @@ angular.module('common.components').factory('customDialog', function ($templateC
     return {
         open: function (option) {
             var $template = $(require('./index.html'));
-            if (option.noResize) {
+            if (option.noResize) {//不重新计算尺寸
                 $template.find('.resize-body:first').removeClass('resize-body');
+            }
+            if (option.noPosition) {//不重新计算位置
+                $template.find('.resize-body:first').addClass('no-position');
             }
             var modalInstance = $uibModal.open(
                 {
+                    backdropClass: option.backdropClass,
+                    openedClass: option.openedClass,
                     windowTemplateUrl: '/dialog/customDialogWindowTemplate',
                     backdrop: angular.isDefined(option.backdrop) ? option.backdrop : 'static',
                     windowClass: option.windowClass,//弹窗的样式
@@ -18,7 +23,7 @@ angular.module('common.components').factory('customDialog', function ($templateC
                     buttonTemplate: null,//增加的按钮
                     windowStyle: option.windowStyle || { width: '1000px' },//给窗体加样式
                     controller: function ($scope, $uibModalInstance) {
-                        $scope.windowStyle =option.windowStyle;// option.windowStyle;
+                        $scope.windowStyle = option.windowStyle;// option.windowStyle;
                         $scope.buttonTemplate = option.buttonTemplate;
                         $scope.title = option.title;
                         $scope.content = option.content;
@@ -65,7 +70,7 @@ angular.module('common.components').factory('customDialog', function ($templateC
     }
 }).directive('customDialog', function () {
     return {
-        restrict:'C',
+        restrict: 'C',
         scope: { windowStyle: '=' },
         link: function ($scope, iElem, iAttr) {
             if ($scope.windowStyle) {

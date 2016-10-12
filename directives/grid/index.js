@@ -65,7 +65,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
             function onResize() {
                 if (debounceEvent) $timeout.cancel(debounceEvent);
                 debounceEvent = $timeout(function () {
-                    
+
                     var parentContainer = iElem.parents('.ui-layout-container:first').length > 0 ? iElem.parents('.ui-layout-container:first') : iElem.parents('.content-uiGrid-height:first');
                     if (parentContainer.length > 0) {
                         var setHeight = parentContainer.height();
@@ -89,11 +89,16 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
         },
         controller: function ($scope, uiGridConstants) {
             $scope.$watch('gridOptions.paginationCurrentPage', function (newVal, oldVal) {
-                if (angular.isDefined(newVal)) {
-                    if ($scope.pageChange) {
-                        $scope.pageChange(newVal, oldVal);
-                    }
+                if ($scope.gridOptions.pageChange) {
+                    $scope.gridOptions.pageChange($scope.gridOptions.paginationPageSize, $scope.gridOptions.paginationCurrentPage);
                 }
+            });
+            var pageSizeChangeFirst = false;//第一次事件忽略
+            $scope.$watch('gridOptions.paginationPageSize', function (newVal, oldVal) {
+                if ($scope.gridOptions.pageChange && pageSizeChangeFirst) {
+                    $scope.gridOptions.pageChange($scope.gridOptions.paginationPageSize, $scope.gridOptions.paginationCurrentPage);
+                }
+                pageSizeChangeFirst = true;
             });
             //复选框全选事件   注意  对象为  gridApi
             //    gridApi.selection.on.rowSelectionChangedBatch($scope, function (allRows) {

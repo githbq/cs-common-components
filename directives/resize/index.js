@@ -7,7 +7,7 @@ angular.module('common.components').directive('customResize', function ($window,
             function debounce() {
                 var debounceEvent = null;
                 if (debounceEvent) $timeout.cancel(debounceEvent);
-                debounceEvent = $timeout(function () {   
+                debounceEvent = $timeout(function () {
                     onResize();
                     debounceEvent = null;
                 }, 200);
@@ -16,13 +16,17 @@ angular.module('common.components').directive('customResize', function ($window,
             function onResize() {
                 var windowWidth = win.outerWidth();// $window.document.body.clientWidth;
                 var windowHeight = win.outerHeight();// $window.document.body.clientHeight;
-                var offsetHeight =150;
+                var offsetHeight = 150;
                 setSize(windowHeight, offsetHeight);
                 setPosition(windowWidth, windowHeight);
             }
             function setPosition(windowWidth, windowHeight) {
-                //设置绝对居中 
                 !element.hasClass('visible') && element.addClass('visible');
+                if ($(element).find('.resize-body.no-position:first').length) {
+                    //根据标识单独关闭 重新定位功能
+                    return;
+                }
+                //设置绝对居中  
                 var dialogWidth = element.outerWidth();
                 var dialogHeight = element.outerHeight();
                 var offsetLeft = windowWidth > dialogWidth ? (windowWidth - dialogWidth) / 2 : 0;
@@ -42,7 +46,7 @@ angular.module('common.components').directive('customResize', function ($window,
                 var css = { height: 'auto', overflowY: 'hidden' };
                 if (elemH <= bodyOriginHeight) {
                     elemH = bodyOriginHeight;
-                } 
+                }
                 css = {
                     'height': (winH - offsetHeight) > bodyOriginHeight ? bodyOriginHeight : (winH - offsetHeight) + 'px',
                     'overflow-y': 'auto'
