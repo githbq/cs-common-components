@@ -20,11 +20,10 @@ angular.module('common.components').directive('imagePreview', function (imagePre
         }
     }
 }).service('imagePreviewService', function () {
-
     this.imgElement = null;
     this.deg = 0;
     this.clearStyle = function () {
-        this.imgElement && (this.imgElement.style = '');
+        this.imgElement && ($(this.imgElement).removeAttr('style'));
         this.deg = 0;
     }
     this.show = function (src) {
