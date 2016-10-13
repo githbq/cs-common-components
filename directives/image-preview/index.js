@@ -12,31 +12,37 @@ angular.module('common.components').directive('imagePreview', function (imagePre
             this.close = () => {
                 this.visible = false;
             };
-            this.hrefClick = ($event) => {
-                $event.stopPropagation();
-            };
             imagePreviewService.show = (src) => {
+                imagePreviewService.clearStyle();
                 this.visible = true;
                 this.src = src;
             }
         }
     }
 }).service('imagePreviewService', function () {
-    this.show = function (src) {
 
+    this.imgElement = null;
+    this.deg = 0;
+    this.clearStyle = function () {
+        this.imgElement && (this.imgElement.style = '');
+        this.deg = 0;
     }
-    this.setRotate = function (elem, $btn) {
-        var deg = 0;
-        $btn.off('click').on("click", function (e) {
-            if ((deg + 90) > 360) {
-                deg = 90;
-            } else {
-                deg += 90;
+    this.show = function (src) {
+    }
+    this.styles = ['webkitTransform', 'MozTransform', 'msTransform', 'OTransform', 'transform'];
+    this.setRotate = function (element, $btns) {
+        this.imgElement = element;
+        var me = this;
+        $btns.off('click').on("click", function (e) {
+            var $btn = $(this);
+            if ($(this).is('.right')) {
+                me.deg += 90;
             }
-            var element = elem;
-            var styles = ['webkitTransform', 'MozTransform', 'msTransform', 'OTransform', 'transform'];
-            for (var i = 0; i < styles.length; i++) {
-                element.style[styles[i]] = "rotate(" + deg + "deg)"
+            else {
+                me.deg -= 90;
+            }
+            for (var i = 0; i < me.styles.length; i++) {
+                element.style[me.styles[i]] = "translate(-50%,-50%) rotate(" + me.deg + "deg)";
             }
             return false;
         });
