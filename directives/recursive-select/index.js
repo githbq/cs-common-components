@@ -1,7 +1,7 @@
 require('./index.less');
 angular.module('common.components').directive('recursiveSelect', function ($q) {
     return {
-        scope: { onFillData: '=?', names: '=items', classes: '@', selectNgClass: '=?', onSelectValue: '=?' },
+        scope: { onFillData: '=?', names: '=items', classes: '@', selectNgClass: '=?', onSelectValue: '=?', onSelect: '=?' },
         template: require('./template.html'),
         controller: function ($scope) {
             var cache = {};
@@ -14,32 +14,43 @@ angular.module('common.components').directive('recursiveSelect', function ($q) {
                         nextArrItem.model.value = '';
                         nextArrItem.arr = [emptyOption];
                         var key = i + '-' + parentSelectedValue;
-                        if (!parentSelectedValue) { return };
+                        if (!parentSelectedValue) {
+                            $scope.onSelect && $scope.onSelect($scope.names, depArrs);
+                            return
+                        };
                         if (cache[key]) {
                             nextArrItem.arr = cache[key];
+                            $scope.onSelect && $scope.onSelect($scope.names, depArrs);
                         } else {
                             $scope.onFillData(parentSelectedValue, nextArrItem, i - 1).then(function (result) {
                                 result = result || [];
                                 result.unshift(emptyOption);
                                 nextArrItem.arr = cache[key] = result;
+                                $scope.onSelect && $scope.onSelect($scope.names, depArrs);
                             });
                         }
                     })(nextArrItem, i, parentSelectedValue);
                     $scope.onSelectValue && $scope.onSelectValue($scope.names);
                 }
             }
-            $scope.depArrs = [];
+            var depArrs = $scope.depArrs = [];
             var dataModel = $scope.dataModel = {};
             var parentValue = '';
             angular.forEach($scope.names, (item, index) => {
                 (function (item, index) {
-                    dataModel[item.key] = { value: item.value, key: item.key };
+                    dataModel[item.key] = item;
                     var arr = [emptyOption];
                     $scope.depArrs.push({ model: dataModel[item.key], arr: arr });
-                    (parentValue || index == 0) && $scope.onFillData(parentValue, $scope.depArrs[$scope.depArrs.length - 1], index).then((result) => {
-                        $scope.depArrs[index].arr = cache[index + '-' + item.value] = arr.concat(result);
-                    });
+                    if (parentValue || index == 0) {
+                        $scope.onFillData(parentValue, $scope.depArrs[$scope.depArrs.length - 1], index).then((result) => {
+                            $scope.depArrs[index].arr = cache[index + '-' + item.value] = arr.concat(result);
+                            $scope.onSelect && $scope.onSelect($scope.names, depArrs);
+                        });
+                    } else {
+                        $scope.onSelect && $scope.onSelect($scope.names, depArrs);
+                    }
                     parentValue = item.value;
+
                 })(item, index);
             });
             $scope.onFillData = $scope.onFillData || function (parentValue, nextArrItem, index) {
