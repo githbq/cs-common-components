@@ -10,7 +10,10 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
             
         },
         controller: function ($scope ) {
-            $scope.innerModel=$scope.ngModel;
+            //$scope.innerModel=$scope.ngModel;
+            $scope.$watch('ngModel',function(){
+                 $scope.innerModel=$scope.ngModel;
+            })
             $scope.newDateOptions = $scope.dateOptions||{};
             $scope.newAttrOptions= $scope.attrOptions||{}; 
             var defaultDate = {
@@ -63,7 +66,7 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
 
             //时间转化为秒
             $scope.$watch('innerModel', () => {
-                
+                debugger
                 if(_.isDate( $scope.innerModel ) ){
                      console.log($scope.innerModel)
                       $scope.ngModel =  $scope.innerModel ?  $scope.innerModel.getTime():'';
