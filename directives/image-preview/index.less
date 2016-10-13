@@ -1,0 +1,83 @@
+.image-preview {
+    position: absolute;
+    .mask {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+        left: 0px;
+    }
+    .preview {
+        max-width: 90%;
+        max-height: 100%;
+        position: fixed;
+        margin: auto;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+    }
+    .container {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 1100;
+        left: 0px;
+    }
+    .opacity {
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        background-color: #000;
+    }
+    .close {
+        position: fixed;
+        right: 0px;
+        top: 0px;
+        z-index: 1100;
+    }
+    .content {
+        text-align: center;
+        z-index: 1100;
+        height: 100%;
+        width: 100%;
+    }
+    .buttons-mask {
+        z-index: 1199;
+        border-radius: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        background-color: black;
+        border-radius: 50px;
+        width: 500px;
+        height: 35px;
+    }
+    .buttons {
+        z-index: 1200;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        width: 500px;
+        position: fixed;
+        bottom: 5px;
+        left: 0px;
+        right: 0px;
+    }
+    .btn-rotate {
+        background-color: #45a4f2;
+        color: #fff;
+        border-radius: 101px;
+        border: 2px solid white;
+        cursor: pointer;
+    }
+    .btn-rotate:hover {
+        background-color: #022848;
+    }
+}

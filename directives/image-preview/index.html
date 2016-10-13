@@ -1,0 +1,13 @@
+<div class="image-preview" ng-show="vm.visible">
+	<div class="mask opacity">
+	</div>
+	<div class="container" ng-click="vm.close()">
+		<div class="content">
+			<a ng-href="{{vm.src}}" target="_black" ng-click="vm.hrefClick($event)">
+				<img class="preview" ng-src='{{vm.src}}' /> 111111111111{{vm.visible }}
+			</a>
+		</div>
+		<div class="buttons-mask"></div>
+		<div class="buttons"><input type="button" class="btn-rotate" value="旋转" /></div>
+	</div>
+</div>

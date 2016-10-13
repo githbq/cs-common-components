@@ -7,3 +7,4 @@ require('./permission');
 require('./repeat-complete');
 require('./fileChanged');
 require('./recursive-select');
+require('./image-preview');
