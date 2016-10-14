@@ -23,6 +23,18 @@ angular.module('common.components').factory('customDialog', function ($templateC
                     buttonTemplate: null,//增加的按钮
                     windowStyle: option.windowStyle || { width: '1000px' },//给窗体加样式
                     controller: function ($scope, $uibModalInstance) {
+                        //最小化窗口
+                        $scope.min = function () {
+                            $scope.showRestoreButton = true;
+                            option.onMinDialog && option.onMinDialog();
+
+                        }
+                        //恢复
+                        $scope.restore = function () {
+                            $scope.showRestoreButton = false;
+                            option.onRestoreDialog && option.onRestoreDialog();
+                        }
+                        $scope.showMinButton = option.showMinButton;
                         $scope.windowStyle = option.windowStyle;// option.windowStyle;
                         $scope.buttonTemplate = option.buttonTemplate;
                         $scope.title = option.title;
