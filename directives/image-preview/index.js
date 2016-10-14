@@ -25,9 +25,9 @@ angular.module('common.components').directive('imagePreview', function (imagePre
     this.clearStyle = function () {
         this.imgElement && ($(this.imgElement).removeAttr('style'));
         this.deg = 0;
-    }
+    };
     this.show = function (src) {
-    }
+    };
     this.styles = ['webkitTransform', 'MozTransform', 'msTransform', 'OTransform', 'transform'];
     this.setRotate = function (element, $btns) {
         this.imgElement = element;
@@ -45,5 +45,5 @@ angular.module('common.components').directive('imagePreview', function (imagePre
             }
             return false;
         });
-    }
+    };
 });
