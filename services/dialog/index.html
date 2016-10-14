@@ -1,6 +1,9 @@
 <div class="custom-dialog" window-style="windowStyle">
 	<div class="icon-container">
-		<span class="glyphicon glyphicon-remove close-icon" ng-click="cancel($event,true)" title="关闭窗口"></span>
+		<span class="glyphicon glyphicon-resize-vertical dialog-top-button" ng-show="showRestoreButton" ng-click="restore($event,true)"
+			title="还原窗口"></span>
+		<span class="glyphicon glyphicon-minus dialog-top-button" ng-show="showMinButton" ng-click="min($event,true)" title="最小化窗口"></span>
+		<span class="glyphicon glyphicon-remove close-icon dialog-top-button" ng-click="cancel($event,true)" title="关闭窗口"></span>
 	</div>
 	<div class="modal-header" drag-handle>
 		<h4 class="modal-title"><span class="glyphicon glyphicon-list"></span>&nbsp;<span class="header-title">{{title}}</span></h4>
