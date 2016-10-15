@@ -97,7 +97,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
 
             //////////////////////分页
             $scope.gridOptions.searchModel = $scope.gridOptions.searchModel || {};
-            //拉取数据的接口 使用时需要自行实例化方法
+            //拉取数据的接口 使用时需要自行实现方法体
             $scope.gridOptions.pullData = $scope.gridOptions.pullData || function () {
                 var q = $q.defer();
                 q.resolve({});
