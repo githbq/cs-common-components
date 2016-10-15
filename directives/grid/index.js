@@ -141,7 +141,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
         controller: function ($scope, uiGridConstants, $templateCache) {
             //////grid row 模板改造  支持双击事件
             $templateCache.put('ui-grid/ui-grid-row/custom',
-                `<div ng-dblclick="grid.appScope.gridOptions.rowDoubleClick($event,row)"
+                `<div ng-dblclick="grid.appScope.gridOptions.rowDoubleClick($event,row,this)"
                  ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.uid" 
                  ui-grid-one-bind-id-grid="rowRenderIndex + '-' + col.uid + '-cell'" class="ui-grid-cell" 
                  ng-class="{ 'ui-grid-row-header-cell': col.isRowHeader }" 
@@ -149,7 +149,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                  </div>`
             );
             $scope.gridOptions.rowTemplate = $scope.gridOptions.rowTemplate || 'ui-grid/ui-grid-row/custom';
-            $scope.gridOptions.rowDoubleClick = $scope.gridOptions.rowDoubleClick || function ($event, row) {
+            $scope.gridOptions.rowDoubleClick = $scope.gridOptions.rowDoubleClick || function ($event, row, scope) {
                 $event.stopPropagation();
             }
             //////模板改造 
