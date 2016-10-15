@@ -1,6 +1,6 @@
 var templateStr = require('./index.html');
 require('./index.less');
-angular.module('common.components').directive('normalGrid', function ($timeout, $window, $q) {
+angular.module('common.components').directive('normalGrid', function (toaster, $timeout, $window, $q) {
     return {
         restrict: 'CA',
         template: templateStr,
@@ -121,10 +121,10 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
             //点击查询
             $scope.gridOptions.search = function ($event) {
                 $scope.gridOptions.paginationCurrentPage = 1;
-                getPage($scope.searchModel);
+                getPage($scope.gridOptions.searchModel);
                 $event && $event.stopPropagation();
             }
-            var currentQueryData = _.extend({}, $scope.searchModel);//当前查询的数据   避免用户修改查询条件后未点击查询下 操作分页 数据查询异常BUG
+            var currentQueryData = _.extend({}, $scope.gridOptions.searchModel);//当前查询的数据   避免用户修改查询条件后未点击查询下 操作分页 数据查询异常BUG
             function getPage(queryData) {
                 currentQueryData = angular.copy(queryData || currentQueryData);
                 $scope.gridOptions.loading = true;
