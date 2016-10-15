@@ -13,8 +13,15 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
             //$scope.innerModel=$scope.ngModel;
             $scope.$watch('ngModel',function(){
                  $scope.innerModel=$scope.ngModel;
-            })
-            $scope.newDateOptions = $scope.dateOptions||{};
+            });
+            
+            $scope.$watch('dateOptions',function(){
+                
+                $scope.newDateOptions = $scope.dateOptions||{};
+                $scope.newDateOptions = angular.extend({}, defaultDate, $scope.newDateOptions);
+            },true);
+             $scope.newDateOptions = $scope.dateOptions||{};
+            
             $scope.newAttrOptions= $scope.attrOptions||{}; 
             var defaultDate = {
                 customClass :function(){},              //一个可选的函数，设置日期面板中每个日期的样式。传入参数为一个json对象{date: obj1, mode: obj2}，返回值为类的名字
@@ -53,8 +60,7 @@ angular.module('common.components').directive('commonDatepicker', function ($tim
                 popupPlacement:'auto bottom-left',              // 在位置前加一个auto,表示日期面板会定位在它最近一个可以滚动的父元素中.可以设置的位置有:top top-left      top-right          bottom                                                       //bottom-left      bottom-right         left       left-top       left-bottom      right          right-top          right-bottom 
                 uibDatepickerPopup:'yyyy/MM/dd'                 //显示日期的格式。可使用的格式见上面的列表。
             }
-            
-             $scope.newDateOptions = angular.extend({}, defaultDate, $scope.newDateOptions);
+            $scope.newDateOptions = angular.extend({}, defaultDate, $scope.newDateOptions);
              $scope.newAttrOptions = angular.extend({}, defaultAttr, $scope.newAttrOptions);
              if( $scope.newAttrOptions.required && !$scope.ngModel ){
                 $scope.innerModel = $scope.ngModel = new Date();
