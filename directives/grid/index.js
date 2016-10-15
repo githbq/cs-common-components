@@ -110,7 +110,11 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                         toaster.pop('info', null, '暂无数据', 1000);
                     }
                     $scope.searching = false;
-                    $scope.gridOptions.data = result.data.model.content;
+                    if ($scope.gridOptions.onSetData) {
+                        $scope.gridOptions.data = $scope.gridOptions.onSetData(result.data.model.content, result.data);
+                    } else {
+                        $scope.gridOptions.data = result.data.model.content;
+                    }
                     $scope.gridOptions.totalItems = result.data.model.itemCount;
                 }
             }
