@@ -4,7 +4,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
     return {
         restrict: 'CA',
         template: templateStr,
-        scope: { gridOptions: '=normalGrid', pageChange: '=' },
+        scope: { gridOptions: '=normalGrid' },
         link: function ($scope, iElem, iAttr) {
             $scope.showGrid = false;
             var defaultOptions = {
@@ -65,7 +65,6 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
             function onResize() {
                 if (debounceEvent) $timeout.cancel(debounceEvent);
                 debounceEvent = $timeout(function () {
-
                     var parentContainer = iElem.parents('.ui-layout-container:first').length > 0 ? iElem.parents('.ui-layout-container:first') : iElem.parents('.ui-grid-dock-wrapper:first');
                     if (parentContainer.length > 0) {
                         var setHeight = parentContainer.height();
@@ -88,18 +87,20 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
             //end 容器大小改变处理  
         },
         controller: function ($scope, uiGridConstants) {
-            $scope.$watch('gridOptions.paginationCurrentPage', function (newVal, oldVal) {
-                if ($scope.gridOptions.pageChange) {
-                    $scope.gridOptions.pageChange($scope.gridOptions.paginationPageSize, $scope.gridOptions.paginationCurrentPage);
-                }
-            });
-            var pageSizeChangeFirst = false;//第一次事件忽略
-            $scope.$watch('gridOptions.paginationPageSize', function (newVal, oldVal) {
-                if ($scope.gridOptions.pageChange && pageSizeChangeFirst) {
-                    $scope.gridOptions.pageChange($scope.gridOptions.paginationPageSize, $scope.gridOptions.paginationCurrentPage);
-                }
-                pageSizeChangeFirst = true;
-            });
+            if ($scope.gridOptions.pageChange) {
+                $scope.$watch('gridOptions.paginationCurrentPage', function (newVal, oldVal) {
+                    if ($scope.gridOptions.pageChange) {
+                        $scope.gridOptions.pageChange($scope.gridOptions.paginationPageSize, $scope.gridOptions.paginationCurrentPage);
+                    }
+                });
+                var pageSizeChangeFirst = false;//第一次事件忽略
+                $scope.$watch('gridOptions.paginationPageSize', function (newVal, oldVal) {
+                    if ($scope.gridOptions.pageChange && pageSizeChangeFirst) {
+                        $scope.gridOptions.pageChange($scope.gridOptions.paginationPageSize, $scope.gridOptions.paginationCurrentPage);
+                    }
+                    pageSizeChangeFirst = true;
+                });
+            }
             //复选框全选事件   注意  对象为  gridApi
             //    gridApi.selection.on.rowSelectionChangedBatch($scope, function (allRows) {
             //                 console.log(allRows)
@@ -150,7 +151,14 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
             //uigrid表格內图标按钮案例
             //<button class="btn btn-default grid-operation-btn-edit" ><span class="glyphicon glyphicon-edit"></span>编辑</button>
             //<button class="btn btn-default grid-operation-btn-del" ><span class="glyphicon glyphicon-remove"></span>删除</button>
+            //onRegisterApi: function (gridApi) {
 
+            //     gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+
+            //         $scope.getQuestionsData({ pageIndex: newPage, pageSize: pageSize });
+
+            //     }); 
+            //}
         }
     };
 });

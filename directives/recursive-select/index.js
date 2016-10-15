@@ -1,7 +1,14 @@
 require('./index.less');
 angular.module('common.components').directive('recursiveSelect', function ($q) {
     return {
-        scope: { onFillData: '=?', names: '=items', classes: '@', selectNgClass: '=?', onSelect: '=?'},
+        scope: {
+            onFillData: '=?',
+            names: '=items',
+            classes: '@',
+            selectNgClass: '=?',
+            onSelect: '=?',
+            readonly:'=?'
+        },
         template: require('./template.html'),
         controller: function ($scope) {
             var cache = {};
