@@ -30,7 +30,8 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 enableColumnMenu: false,//显示列的表头菜单
                 enableHorizontalScrollbar: 0, //grid水平滚动条是否显示, 0-不显示  1-显示
                 enableVerticalScrollbar: 1, //grid垂直滚动条是否显示, 0-不显示  1-显示,
-                autoPage: false//是否启用默认封装的分页
+                autoPage: false,//是否启用默认封装的分页
+                searchModel: {}//搜索使用的模型 重写 以赋默认值   无需pageSize pageIndex字段
             };
             $scope.gridOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
             if ($scope.gridOptions.showCustomPagination) {//如果使用自定义的分页则默认分页不启用
@@ -98,12 +99,12 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
             //////////////////////分页
             $scope.gridOptions.searchModel = $scope.gridOptions.searchModel || {};
             //拉取数据的接口 使用时需要自行实现方法体
-            $scope.gridOptions.pullData = $scope.gridOptions.pullData || function () {
+            $scope.gridOptions.onPullData = $scope.gridOptions.onPullData || function () {
                 var q = $q.defer();
                 q.resolve({});
                 return q.promise;
             }
-            $scope.gridOptions.onPullData = $scope.gridOptions.onPullData || function (result) {
+            $scope.gridOptions.afterPullData = $scope.gridOptions.afterPullData || function (result) {
                 if (result.data && result.data.success) {
                     if (result.data.model.content.length == 0) {
                         toaster.pop('info', null, '暂无数据', 1000);
@@ -125,9 +126,9 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 $scope.gridOptions.loading = true;
                 $scope.searching = true;
                 //这里进行从后端拿数据赋值给 $scope.gridOptions.data操作
-                $scope.gridOptions.pullData(_.extend({ pageSize: $scope.gridOptions.paginationPageSize, pageIndex: $scope.gridOptions.paginationCurrentPage }, currentQueryData))
+                $scope.gridOptions.onPullData(_.extend({ pageSize: $scope.gridOptions.paginationPageSize, pageIndex: $scope.gridOptions.paginationCurrentPage }, currentQueryData))
                     .then((result) => {
-                        $scope.gridOptions.onPullData(result);
+                        $scope.gridOptions.afterPullData(result);
                     }, () => {
                         $scope.gridOptions.data = [];
                         $scope.gridOptions.totalItems = 0;
