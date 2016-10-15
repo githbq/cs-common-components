@@ -1,6 +1,6 @@
 var templateStr = require('./index.html');
 require('./index.less');
-angular.module('common.components').directive('normalGrid', function ($timeout, $window) {
+angular.module('common.components').directive('normalGrid', function ($timeout, $window, $q) {
     return {
         restrict: 'CA',
         template: templateStr,
@@ -29,7 +29,8 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 showIndexHeader: false,   //显示序列号
                 enableColumnMenu: false,//显示列的表头菜单
                 enableHorizontalScrollbar: 0, //grid水平滚动条是否显示, 0-不显示  1-显示
-                enableVerticalScrollbar: 1 //grid垂直滚动条是否显示, 0-不显示  1-显示
+                enableVerticalScrollbar: 1, //grid垂直滚动条是否显示, 0-不显示  1-显示,
+                autoPage: false//是否启用默认封装的分页
             };
             $scope.gridOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
             if ($scope.gridOptions.showCustomPagination) {//如果使用自定义的分页则默认分页不启用
@@ -48,9 +49,17 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
             $scope.gridOptions._onRegisterApi = $scope.gridOptions.onRegisterApi;
             $scope.gridOptions.onRegisterApi = function (gridApi) {
                 $scope.gridOptions.gridApi = gridApi;
-                if ($scope.gridOptions.showIndexHeader) {
+                if ($scope.gridOptions.showIndexHeader) {//显示索引列
                     gridApi.core.addRowHeaderColumn({ name: '__sequence', displayName: '#', width: 50, cellTemplate: 'ui-grid/uiGridCell' });
                     gridApi.grid.registerRowsProcessor($scope.addIndexColumn, 200);
+                }
+                if ($scope.gridOptions.autoPage) {//开启默认封装的分页
+                    gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+                        $scope.getPage({ pageIndex: newPage, pageSize: pageSize });
+                    });
+                    if ($scope.gridOptions.autoPage === 1) {//默认执行查询行为
+                        $scope.gridOptions.search();
+                    }
                 }
                 $scope.gridOptions._onRegisterApi && $scope.gridOptions._onRegisterApi(gridApi);
             };
@@ -85,6 +94,48 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 angular.element($window).unbind('resize', onResize);
             });
             //end 容器大小改变处理  
+
+            //////////////////////分页
+            $scope.gridOptions.searchModel = $scope.gridOptions.searchModel || {};
+            //拉取数据的接口 使用时需要自行实例化方法
+            $scope.gridOptions.pullData = $scope.gridOptions.pullData || function () {
+                var q = $q.defer();
+                q.resolve({});
+                return q.promise;
+            }
+            $scope.gridOptions.onPullData = $scope.gridOptions.onPullData || function (result) {
+                if (result.data && result.data.success) {
+                    if (result.data.model.content.length == 0) {
+                        toaster.pop('info', null, '暂无数据', 1000);
+                    }
+                    $scope.searching = false;
+                    $scope.gridOptions.data = result.data.model.content;
+                    $scope.gridOptions.totalItems = result.data.model.itemCount;
+                }
+            }
+            //点击查询
+            $scope.gridOptions.search = function ($event) {
+                $scope.gridOptions.paginationCurrentPage = 1;
+                getPage($scope.searchModel);
+                $event && $event.stopPropagation();
+            }
+            var currentQueryData = _.extend({}, $scope.searchModel);//当前查询的数据   避免用户修改查询条件后未点击查询下 操作分页 数据查询异常BUG
+            function getPage(queryData) {
+                currentQueryData = angular.copy(queryData || currentQueryData);
+                $scope.gridOptions.loading = true;
+                $scope.searching = true;
+                //这里进行从后端拿数据赋值给 $scope.gridOptions.data操作
+                $scope.gridOptions.pullData(_.extend({ pageSize: $scope.gridOptions.paginationPageSize, pageIndex: $scope.gridOptions.paginationCurrentPage }, currentQueryData))
+                    .then((result) => {
+                        $scope.gridOptions.onPullData(result);
+                    }, () => {
+                        $scope.gridOptions.data = [];
+                        $scope.gridOptions.totalItems = 0;
+                    }).finally(() => {
+                        $scope.gridOptions.loading = false;
+                    });
+            }
+            //////////////////////end 分页
         },
         controller: function ($scope, uiGridConstants) {
             if ($scope.gridOptions.pageChange) {

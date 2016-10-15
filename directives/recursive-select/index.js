@@ -18,7 +18,6 @@ angular.module('common.components').directive('recursiveSelect', function ($q) {
                    init();   
             });
             $scope.selectChange = function (model, arrItems, index) { 
-                debugger
                 for (var i = index + 1; i < arrItems.length; i++) {
                     var nextArrItem = arrItems[i];
                     var parentSelectedValue = arrItems[i - 1].model.value;
