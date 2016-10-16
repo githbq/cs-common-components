@@ -156,6 +156,20 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
             $scope.gridOptions.rowDoubleClick = $scope.gridOptions.rowDoubleClick || function ($event, row, scope) {
                 $event.stopPropagation();
             }
+            if ($scope.gridOptions.pageChange) {//值监听防止不兼容新的分页模式
+                $scope.$watch('gridOptions.paginationCurrentPage', function (newVal, oldVal) {
+                    if ($scope.gridOptions.pageChange) {
+                        $scope.gridOptions.pageChange($scope.gridOptions.paginationPageSize, $scope.gridOptions.paginationCurrentPage);
+                    }
+                });
+                var pageSizeChangeFirst = false;//第一次事件忽略
+                $scope.$watch('gridOptions.paginationPageSize', function (newVal, oldVal) {
+                    if ($scope.gridOptions.pageChange && pageSizeChangeFirst) {
+                        $scope.gridOptions.pageChange($scope.gridOptions.paginationPageSize, $scope.gridOptions.paginationCurrentPage);
+                    }
+                    pageSizeChangeFirst = true;
+                });
+            }
             //////模板改造 
             //复选框全选事件   注意  对象为  gridApi
             //    gridApi.selection.on.rowSelectionChangedBatch($scope, function (allRows) {
