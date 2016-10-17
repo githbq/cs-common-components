@@ -16,6 +16,9 @@ Date.prototype.format = function (fmt) {
 
 angular.module( 'common.components' ).filter( 'time', function () {
   return function ( time ) {
+    if ( !angular.isDefined(time) ) {
+      return '';
+    }
     var now = new Date(),
       date = new Date( time ),
       ny = now.getFullYear(),
