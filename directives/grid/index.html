@@ -1,5 +1,6 @@
 <div class="grid-wrapper" ng-class="{visible:showGrid}">
 	<div custom-loading="gridOptions.loading"></div>
+	<div ng-show="gridOptions.showEmptyTip" class="alert alert-warning empty-tip" role="alert">暂无数据</div>
 	<div ui-grid="gridOptions" class="table-uigrid" ui-grid-selection ui-grid-pagination ui-grid-resize-columns ui-grid-cell-nav
 		ui-grid-move-columns ui-grid-auto-resize></div>
 	<div class="pagination-wrapper" ng-if="gridOptions.showCustomPagination">

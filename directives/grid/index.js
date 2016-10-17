@@ -100,24 +100,27 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
             $scope.gridOptions.searchModel = $scope.gridOptions.searchModel || {};
             //拉取数据的接口 使用时需要自行实现方法体
             $scope.gridOptions.onPullData = $scope.gridOptions.onPullData || function () {
-                    var q = $q.defer();
-                    q.resolve({});
-                    return q.promise;
-                }
+                var q = $q.defer();
+                q.resolve({});
+                return q.promise;
+            }
             $scope.gridOptions.afterPullData = $scope.gridOptions.afterPullData || function (result) {
-                    if (result.data && result.data.success) {
-                        if (result.data.model.content.length == 0) {
-                            toaster.pop('info', null, '暂无数据', 1000);
-                        }
-                        $scope.searching = false;
-                        if ($scope.gridOptions.onSetData) {
-                            $scope.gridOptions.data = $scope.gridOptions.onSetData(result.data.model.content, result.data);
-                        } else {
-                            $scope.gridOptions.data = result.data.model.content;
-                        }
-                        $scope.gridOptions.totalItems = result.data.model.itemCount;
+                if (result.data && result.data.success) {
+                    if (result.data.model.content.length == 0) {
+                        $scope.gridOptions.showEmptyTip = true;
+                    } else {
+                      
+                        $scope.gridOptions.showEmptyTip = false;
                     }
+                    $scope.searching = false;
+                    if ($scope.gridOptions.onSetData) {
+                        $scope.gridOptions.data = $scope.gridOptions.onSetData(result.data.model.content, result.data);
+                    } else {
+                        $scope.gridOptions.data = result.data.model.content;
+                    }
+                    $scope.gridOptions.totalItems = result.data.model.itemCount;
                 }
+            }
             //点击查询
             $scope.gridOptions.search = function ($event) {
                 $scope.gridOptions.paginationCurrentPage = 1;
@@ -132,13 +135,14 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
                 //这里进行从后端拿数据赋值给 $scope.gridOptions.data操作
                 $scope.gridOptions.onPullData(_.extend({ pageSize: $scope.gridOptions.paginationPageSize, pageIndex: $scope.gridOptions.paginationCurrentPage }, currentQueryData))
                     .then((result) => {
-                    $scope.gridOptions.afterPullData(result);
-            }, () => {
-                    $scope.gridOptions.data = [];
-                    $scope.gridOptions.totalItems = 0;
-                }).finally(() => {
-                    $scope.gridOptions.loading = false;
-            });
+                        $scope.gridOptions.afterPullData(result);
+                    }, () => {
+                        $scope.gridOptions.data = [];
+                        $scope.gridOptions.totalItems = 0;
+                        $scope.gridOptions.showEmptyTip = false;
+                    }).finally(() => {
+                        $scope.gridOptions.loading = false;
+                    });
             }
             //////////////////////end 分页
         },
@@ -154,8 +158,8 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
             );
             $scope.gridOptions.rowTemplate = $scope.gridOptions.rowTemplate || 'ui-grid/ui-grid-row/custom';
             $scope.gridOptions.rowDoubleClick = $scope.gridOptions.rowDoubleClick || function ($event, row, scope) {
-                    $event.stopPropagation();
-                }
+                $event.stopPropagation();
+            }
             if ($scope.gridOptions.pageChange) {//值监听防止不兼容新的分页模式
                 $scope.$watch('gridOptions.paginationCurrentPage', function (newVal, oldVal) {
                     if ($scope.gridOptions.pageChange) {
