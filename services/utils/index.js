@@ -210,6 +210,10 @@ angular.module( 'common.components' ).factory( 'ibssUtils', function ( $http, $q
             var fileList = [];
             if ( files instanceof Array ) {
                 fileList = files;
+            } else if (files instanceof FileList) {
+                for (var i = 0; i < files.length; ++i) {
+                    fileList.push(files[i]);
+                }
             } else {
                 fileList.push( files );
             }
