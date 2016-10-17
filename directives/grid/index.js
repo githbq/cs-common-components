@@ -66,7 +66,7 @@ angular.module('common.components').directive('normalGrid', function ($timeout, 
                 if (debounceEvent) $timeout.cancel(debounceEvent);
                 debounceEvent = $timeout(function () {
 
-                    var parentContainer = iElem.parents('.ui-layout-container:first').length > 0 ? iElem.parents('.ui-layout-container:first') : iElem.parents('.content-uiGrid-height:first');
+                    var parentContainer = iElem.parents('.ui-layout-container:first').length > 0 ? iElem.parents('.ui-layout-container:first') : iElem.parents('.ui-grid-dock-wrapper:first');
                     if (parentContainer.length > 0) {
                         var setHeight = parentContainer.height();
                         if (iElem.find('.pagination-wrapper').length > 0) {
