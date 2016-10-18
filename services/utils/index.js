@@ -159,7 +159,7 @@ angular.module( 'common.components' ).factory( 'ibssUtils', function ( $http, $q
                 console.log( '=== Concat front { splitter: ' + splitter + ', connector: ' + connector + ' }' );
                 return fa.concat( ea.slice( splitter ) );
             } else {
-                splitter = -1;
+                splitter = 0;
                 connector = property ? ea[ 0 ][ property ] : ea[ 0 ];
                 for ( var j = faSize - 1; j >= 0; --j ) {
                     var fj = property ? fa[ j ][ property ] : fa[ j ];
