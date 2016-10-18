@@ -269,7 +269,9 @@ angular.module( 'common.components' ).factory( 'ibssUtils', function ( $http, $q
             }
         }, opt || {} );
         return $http( opt ).error( function ( data, status ) {
+          if ( status >= 0 ) {
             toaster.pop( 'error', '请求错误', 'Status: ' + status );
+          }
         } );
     };
     factory.checkBlankSpace = function ( str ) {
