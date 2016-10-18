@@ -123,7 +123,7 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
             }
             //点击查询
             $scope.gridOptions.search = function ($event, extraData) {
-                if (!($event instanceof jQuery.Event) && extraData) {
+                if (!($event instanceof jQuery.Event)) {
                     extraData = $event;
                     $event = null;
                 }
