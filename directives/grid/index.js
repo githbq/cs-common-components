@@ -123,9 +123,12 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
                 }
             }
             //点击查询
-            $scope.gridOptions.search = function ($event) {
+            $scope.gridOptions.search = function ($event, extraData) {
+                if (!($event instanceof jQuery.Event) && extraData) {
+                    extraData = $event;
+                }
                 $scope.gridOptions.paginationCurrentPage = 1;
-                getPage($scope.gridOptions.searchModel);
+                getPage(_.extend($scope.gridOptions.searchModel, extraData));
                 $event && $event.stopPropagation();
             }
             var currentQueryData = _.extend({}, $scope.gridOptions.searchModel);//当前查询的数据   避免用户修改查询条件后未点击查询下 操作分页 数据查询异常BUG
