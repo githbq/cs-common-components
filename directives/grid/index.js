@@ -129,6 +129,7 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
             }
             var currentQueryData = _.extend({}, $scope.gridOptions.searchModel);//当前查询的数据   避免用户修改查询条件后未点击查询下 操作分页 数据查询异常BUG
             function getPage(queryData) {
+                $scope.gridOptions.showEmptyTip = false;
                 currentQueryData = angular.copy(queryData || currentQueryData);
                 $scope.gridOptions.loading = true;
                 $scope.searching = true;
