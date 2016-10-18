@@ -112,7 +112,7 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
                     } else {
 
                         $scope.gridOptions.showEmptyTip = false;
-                    } 
+                    }
                     if ($scope.gridOptions.onSetData) {
                         $scope.gridOptions.data = $scope.gridOptions.onSetData(result.data.model.content, result.data);
                     } else {
@@ -125,6 +125,7 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
             $scope.gridOptions.search = function ($event, extraData) {
                 if (!($event instanceof jQuery.Event) && extraData) {
                     extraData = $event;
+                    $event = null;
                 }
                 $scope.gridOptions.paginationCurrentPage = 1;
                 getPage(_.extend($scope.gridOptions.searchModel, extraData));
