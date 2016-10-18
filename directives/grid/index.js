@@ -25,6 +25,7 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
                 useExternalSorting: false,//是否使用远程ajax的排序
                 enablePagination: true, //是否分页，默认为true
                 enablePaginationControls: true,//使用默认的底部分页
+                rowHeight: 40,
                 showCustomPagination: false,//是否使用自定义的分页组件  默认不用
                 showIndexHeader: false,   //显示序列号
                 enableColumnMenu: false,//显示列的表头菜单
@@ -109,7 +110,7 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
                     if (result.data.model.content.length == 0) {
                         $scope.gridOptions.showEmptyTip = true;
                     } else {
-                      
+
                         $scope.gridOptions.showEmptyTip = false;
                     }
                     $scope.searching = false;
