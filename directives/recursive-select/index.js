@@ -38,7 +38,7 @@ angular.module('common.components').directive('recursiveSelect', function ($q) {
                                 result = result || [];
                                 result.unshift(emptyOption);
                                 nextArrItem.arr = cache[key] = result;
-                                $scope.onSelect && $scope.onSelect($scope.names, $scope.depArrs);
+                                $scope.onSelect && $scope.onSelect($scope.names, $scope.depArrs, $scope.source);
                             });
                         }
                     })(nextArrItem, i, parentSelectedValue);
