@@ -159,7 +159,7 @@ angular.module( 'common.components' ).factory( 'ibssUtils', function ( $http, $q
                 console.log( '=== Concat front { splitter: ' + splitter + ', connector: ' + connector + ' }' );
                 return fa.concat( ea.slice( splitter ) );
             } else {
-                splitter = -1;
+                splitter = 0;
                 connector = property ? ea[ 0 ][ property ] : ea[ 0 ];
                 for ( var j = faSize - 1; j >= 0; --j ) {
                     var fj = property ? fa[ j ][ property ] : fa[ j ];
@@ -269,7 +269,9 @@ angular.module( 'common.components' ).factory( 'ibssUtils', function ( $http, $q
             }
         }, opt || {} );
         return $http( opt ).error( function ( data, status ) {
+          if ( status >= 0 ) {
             toaster.pop( 'error', '请求错误', 'Status: ' + status );
+          }
         } );
     };
     factory.checkBlankSpace = function ( str ) {
