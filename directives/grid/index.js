@@ -57,7 +57,7 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
                 }
                 if ($scope.gridOptions.autoPage) {//开启默认封装的分页
                     gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
-                        $scope.getPage({ pageIndex: newPage, pageSize: pageSize });
+                        getPage({ pageIndex: newPage, pageSize: pageSize });
                     });
                     if ($scope.gridOptions.autoPage === 1) {//默认执行查询行为
                         $scope.gridOptions.search();
