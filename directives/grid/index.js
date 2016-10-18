@@ -112,8 +112,7 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
                     } else {
 
                         $scope.gridOptions.showEmptyTip = false;
-                    }
-                    $scope.searching = false;
+                    } 
                     if ($scope.gridOptions.onSetData) {
                         $scope.gridOptions.data = $scope.gridOptions.onSetData(result.data.model.content, result.data);
                     } else {
@@ -136,7 +135,7 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
                 $scope.gridOptions.showEmptyTip = false;
                 currentQueryData = angular.copy(queryData || currentQueryData);
                 $scope.gridOptions.loading = true;
-                $scope.searching = true;
+                $scope.gridOptions.searching = true;
                 //这里进行从后端拿数据赋值给 $scope.gridOptions.data操作
                 $scope.gridOptions.onPullData(_.extend({ pageSize: $scope.gridOptions.paginationPageSize, pageIndex: $scope.gridOptions.paginationCurrentPage }, currentQueryData))
                     .then((result) => {
@@ -147,6 +146,7 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
                         $scope.gridOptions.showEmptyTip = false;
                     }).finally(() => {
                         $scope.gridOptions.loading = false;
+                        $scope.gridOptions.searching = false;
                     });
             }
             //////////////////////end 分页
