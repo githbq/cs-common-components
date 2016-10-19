@@ -1,6 +1,7 @@
 <div class="recursive-select">
 	<div class="recursive-select_wrapper" ng-repeat="arrItem in depArrs track by $index">
-		<select ng-readonly="readonly" ng-disabled="readonly" ng-change="selectChange(arrItem.model, depArrs, $index)" name="{{arrItem.model.key}}"
-			class="form-control {{classes}}" ng-class="selectNgClass" ng-model="arrItem.model.value" ng-options="item.id as item.text for item in arrItem.arr"></select>
+		<select ng-if="!(hideEmptySelect===true && arrItem.arr&& arrItem.arr.length>1)" ng-readonly="readonly" ng-disabled="readonly"
+			ng-change="selectChange(arrItem.model, depArrs, $index)" name="{{arrItem.model.key}}" class="form-control {{classes}}"
+			ng-class="selectNgClass" ng-model="arrItem.model.value" ng-options="item.id as item.text for item in arrItem.arr"></select>
 	</div>
 </div>
