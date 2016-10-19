@@ -57,7 +57,10 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
                 }
                 if ($scope.gridOptions.autoPage) {//开启默认封装的分页
                     gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
-                        getPage({ pageIndex: newPage, pageSize: pageSize });
+                        if (!$scope.gridOptions.fromSearch) {
+                            getPage({ pageIndex: newPage, pageSize: pageSize });
+                        }
+                        $scope.gridOptions.fromSearch = false;
                     });
                     if ($scope.gridOptions.autoPage === 1) {//默认执行查询行为
                         $scope.gridOptions.search();
@@ -123,6 +126,7 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
             }
             //点击查询
             $scope.gridOptions.search = function ($event, extraData) {
+                $scope.gridOptions.fromSearch = true;
                 if (!($event instanceof jQuery.Event)) {
                     extraData = $event;
                     $event = null;
