@@ -22,6 +22,7 @@ angular.module('common.components').factory('customDialog', function ($templateC
                     template: option.template || $template.get(0).outerHTML,//字符串模板
                     buttonTemplate: null,//增加的按钮
                     windowStyle: option.windowStyle || { width: '1000px' },//给窗体加样式
+                    hideDefaultButtons: false,//隐藏默认按钮
                     controller: function ($scope, $uibModalInstance) {
                         //最小化窗口
                         $scope.min = function () {
@@ -34,6 +35,7 @@ angular.module('common.components').factory('customDialog', function ($templateC
                             $scope.showRestoreButton = false;
                             option.onRestoreDialog && option.onRestoreDialog();
                         }
+                        $scope.hideDefaultButtons = option.hideDefaultButtons;
                         $scope.showMinButton = option.showMinButton;
                         $scope.windowStyle = option.windowStyle;// option.windowStyle;
                         $scope.buttonTemplate = option.buttonTemplate;
