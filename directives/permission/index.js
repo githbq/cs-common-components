@@ -14,7 +14,6 @@ angular.module('common.components').directive('permission', function ($rootScope
                 
             });
             $scope.onModulesChanged = function (modules, $elem,$attrs) {
-                //debugger
                 var codes = $attrs.permission && $attrs.permission.split(',');
                 //console.log('=== Scope permissons: ' + $attrs.permission);
                 var enabled = _.intersection(modules, codes).length > 0;
