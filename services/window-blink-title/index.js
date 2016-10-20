@@ -37,7 +37,7 @@ angular.module('common.components').service('windowBlinkTitleService', function 
             initInterval();
             words = _.map(notifies, function (item) {
                 if (times % 2 == 0) {
-                    var emptyText = _.map(new Array(item.text.length), function () { return ''; }).join('　');
+                    var emptyText = _.map(new Array(item.text.length), function () { return '　'; }).join('');
                     return `【${emptyText}】`;
                 }
                 else {
@@ -45,7 +45,7 @@ angular.module('common.components').service('windowBlinkTitleService', function 
                 }
 
             });
-            $window.document.title = words.join(' ') + originTitle;
+            $window.document.title = words.join('') + originTitle;
         } else {
             clearInterval();
             $window.document.title = originTitle;
