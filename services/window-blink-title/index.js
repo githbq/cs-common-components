@@ -1,7 +1,4 @@
-angular.module('common.components').service('windowBlinkTitleService', function ($interval, $window) {
-
-    setTimeout(() => { this.push(111, 222) }, 2000)
-
+angular.module('common.components').service('windowBlinkTitleService', function ($interval, $window) { 
     var originTitle = $window.document.title || '';
     var notifies = [];
     var timer = null;
