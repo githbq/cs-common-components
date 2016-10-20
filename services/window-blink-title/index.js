@@ -1,4 +1,7 @@
 angular.module('common.components').service('windowBlinkTitleService', function ($interval, $window) {
+
+    setTimeout(() => { this.push(111, 222) }, 2000)
+
     var originTitle = $window.document.title || '';
     var notifies = [];
     var timer = null;
@@ -6,7 +9,7 @@ angular.module('common.components').service('windowBlinkTitleService', function 
     this.push = function (id, text) {
         this.stop(id);
         if (id && text) {
-            notifies.push({ id, text });
+            notifies.push(createData(id, text));
         }
         initInterval();
     }
@@ -14,8 +17,12 @@ angular.module('common.components').service('windowBlinkTitleService', function 
     this.unshift = function (id, text) {
         this.stop(id);
         if (id && text) {
-            notifies.unshift({ id, text });
+            notifies.unshift(createData(id, text));
         }
+    }
+    function createData(id, text) {
+        var emptyText = _.map(new Array(text.length), function () { return '　'; }).join('');
+        return { id, text, emptyText }
     }
     this.stop = function (id) {
         var findIndex = -1;
@@ -36,14 +43,11 @@ angular.module('common.components').service('windowBlinkTitleService', function 
         if (notifies.length > 0) {
             initInterval();
             words = _.map(notifies, function (item) {
-                if (times % 2 == 0) {
-                    var emptyText = _.map(new Array(item.text.length), function () { return '　'; }).join('');
-                    return `【${emptyText}】`;
-                }
-                else {
-                    return `【${item.text}】`;
-                }
-
+                var text = item.text;
+                if (times % 2 == 0) { 
+                    text = item.emptyText;
+                } 
+                return `【${text}】`;
             });
             $window.document.title = words.join('') + originTitle;
         } else {
