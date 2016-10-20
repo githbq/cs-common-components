@@ -65,12 +65,15 @@ angular.module('common.components').directive('recursiveSelect', function ($q) {
                 var parentValue = '';
                 $scope.depArrs = [];
                 $scope.dataModel = {};
+                var lastModel = null;
                 angular.forEach($scope.names, (item, index) => {
                     (function (item, index) {
                         $scope.dataModel[item.key] = item;
                         var arr = [emptyOption];
                         $scope.depArrs.push({ model: $scope.dataModel[item.key], arr: arr });
-                        var lastModel = $scope.depArrs[index];
+                        if (!lastModel) {
+                            lastModel = $scope.depArrs[index].model;
+                        }
                         if (parentValue || index == 0) {
                             $scope.onFillData(parentValue, $scope.depArrs[$scope.depArrs.length - 1], index).then((result) => {
                                 $scope.depArrs[index].arr = cache[index + '-' + item.value] = arr.concat(result);
