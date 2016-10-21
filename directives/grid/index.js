@@ -158,7 +158,9 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
     controller: function ($scope, uiGridConstants, $templateCache) {
       var beforeRenderOptions = {
         paginationCurrentPage: 1,
-        paginationPageSizes: [10, 50, 75, 100]
+        paginationPageSizes: [10, 50, 75, 100],
+        enableHorizontalScrollbar: 0, //grid水平滚动条是否显示, 0-不显示  1-显示
+        enableVerticalScrollbar: 1, //grid垂直滚动条是否显示, 0-不显示  1-显示,
       };
       _.extend($scope.gridOptions.paginationPageSizes, beforeRenderOptions);
       //////grid row 模板改造  支持双击事件
