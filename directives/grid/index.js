@@ -34,7 +34,8 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
         autoPage: false,//是否启用默认封装的分页
         searchModel: {}//搜索使用的模型 重写 以赋默认值   无需pageSize pageIndex字段
       };
-      $scope.gridOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
+      var tempOptions = angular.extend({}, defaultOptions, $scope.gridOptions);
+      $scope.gridOptions = angular.extend($scope.gridOptions, tempOptions);
       if ($scope.gridOptions.showCustomPagination) {//如果使用自定义的分页则默认分页不启用
         $scope.gridOptions.enablePaginationControls = false;
       }
@@ -156,13 +157,6 @@ angular.module('common.components').directive('normalGrid', function (toaster, $
       //////////////////////end 分页
     },
     controller: function ($scope, uiGridConstants, $templateCache) {
-      var beforeRenderOptions = {
-        paginationCurrentPage: 1,
-        paginationPageSizes: [10, 50, 75, 100],
-        enableHorizontalScrollbar: 0, //grid水平滚动条是否显示, 0-不显示  1-显示
-        enableVerticalScrollbar: 1, //grid垂直滚动条是否显示, 0-不显示  1-显示,
-      };
-      _.extend($scope.gridOptions.paginationPageSizes, beforeRenderOptions);
       //////grid row 模板改造  支持双击事件
       $templateCache.put('ui-grid/ui-grid-row/custom',
         `<div ng-dblclick="grid.appScope.gridOptions.rowDoubleClick($event,row,this)"
