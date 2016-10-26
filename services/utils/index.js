@@ -231,7 +231,8 @@ angular.module( 'common.components' ).factory( 'ibssUtils', function ( $http, $q
       xhr.onreadystatechange = function () {
         if ( xhr.readyState == 4 && xhr.status == 200 ) {
           var response = JSON.parse( xhr.responseText );
-          deferred.resolve( response );
+          var data = { success: response.success, model: response.value ? response.value.model : {} };
+          deferred.resolve( data );
         } else if ( xhr.readyState == 4 ) {
           toaster.pop( 'error', '响应错误', xhr.statusText );
           deferred.reject( xhr.status );
